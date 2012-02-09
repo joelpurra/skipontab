@@ -230,39 +230,29 @@
 		{
 			var $productsBody = $("#products tbody");
 			var productCounter = $productsBody.children("tr").length;
-
-			var $productCell =
-					$("<td />")
-						.html("Extra times "
-							+ productCounter
-							+ " expensive add-on kit");
-
-			var $quantityInput =
-					$("<input />")
-						.attr("id", "amount-" + productCounter)
-						.attr("type", "number")
-						.attr("min", "0")
-						.attr("step", "1")
-						.attr("required", "required")
-						.val("0");
-
-			var $quantityCell =
-					$("<td />")
-						.append($quantityInput);
-
-			var $tr = $("<tr />")
-						.append($productCell)
-						.append($quantityCell);
+			var inputId = "amount-" + productCounter;
 
 			$productsBody
-						.append($tr);
+				.append($("<tr />")
+					.append($("<td />")
+						.html("Extra times "
+							+ productCounter
+							+ " expensive add-on kit"))
+					.append($("<td />")
+						.append($("<input />")
+							.attr("id", inputId)
+							.attr("type", "number")
+							.attr("min", "0")
+							.attr("step", "1")
+							.attr("required", "required")
+							.val("0"))));
 
 			// Since the quantity input element is added dynamically, SkipOnTab 
 			// needs to be called to initialize event listeners on it
-			JoelPurra.SkipOnTab.skipOnTab($quantityInput);
-
 			// Programmatically setting focus is not affected by SkipOnTab
-			$quantityInput.focus();
+			$("#" + inputId)
+				.skipOnTab()
+				.focus();
 		}
 
 		function simulateSubmitting(event)

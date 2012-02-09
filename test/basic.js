@@ -479,6 +479,46 @@
 
 	(function ()
 	{
+		module("$.fn.skipOnTab",
+		{
+			setup: normalSetup
+		});
+
+		asyncTest("Element", 9, function ()
+		{
+			$container
+				.append('<input id="start" type="text" value="text field that is the starting point" />')
+				.append('<input id="a" type="text" value="text field that is skipped" />')
+				.append('<input id="end" type="submit" value="submit button that is at the end of the skipped elements" />');
+
+			assertStartAEnd(function ()
+			{
+				JoelPurra.SkipOnTab.init();
+
+				$("#a").skipOnTab();
+			});
+		});
+
+		asyncTest("Container", 9, function ()
+		{
+			$container
+				.append('<input id="start" type="text" value="text field that is the starting point" />')
+				.append($('<div id="container" data-skip-on-tab="true" />')
+					.append('<input id="a" type="text" value="text field that is skipped" />'))
+				.append('<input id="end" type="submit" value="submit button that is at the end of the skipped elements" />');
+
+			assertStartAEnd(function ()
+			{
+				JoelPurra.SkipOnTab.init();
+
+				$("#container").skipOnTab();
+			});
+		});
+
+	} ());
+
+	(function ()
+	{
 		module("Larger scale",
 		{
 			setup: normalSetup

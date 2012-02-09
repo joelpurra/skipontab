@@ -214,6 +214,19 @@ var JoelPurra = JoelPurra || {};
 				.attr("data-skip-on-tab-initialized", "true")
 				.focus(checkSkipOnTabFocus);
 		};
+
+		$.fn.extend({
+			skipOnTab: function( type, options ) {
+
+				return this.each(function() {
+					
+					var $this = $(this);
+
+					namespace.SkipOnTab.skipOnTab($this);
+				});
+			}
+		});
+
 	}
 
 } (jQuery, JoelPurra));
