@@ -4,7 +4,7 @@
  * exempt selected fields from the forward tab order.
  * include excluded fields in the reverse tab order.
 
-Skipped fields can still be navigated to by keyboard; once skipped and focusing the next form field, use <kbd>shift</kbd>-<kbd>tab</kbd> to step back. Mouse or touch navigation is unaffected.
+When using <kbd>tab</kbd> to navigate through a form, skipping some fields will reduce key presses for the normal use cases. Skipped fields can still be navigated to by keyboard; once skipped and focusing the next form field, use <kbd>shift</kbd>-<kbd>tab</kbd> to step back. Mouse or touch navigation is unaffected.
 
 This library is most useful when the users are familiar with the form, and uses it regularly. Casual users may not feel as comfortable - then again, if they are already using the <kbd>tab</kbd> button, they might see it as an optimization.
 
@@ -12,13 +12,9 @@ This library is most useful when the users are familiar with the form, and uses 
 * `examples/demo.html`: Simple demo for playing around.
 * `examples/skip-some-fields-in-order-form.html`: Expanded demo with some thoughts on what fields to skip.
 
-## Original purpose
-Developed to skip less used form fields in a web application for registering and administering letters. Examples of skipped fields are dropdowns with sensible defaults, the second address line fields in address forms and buttons for seldom used actions.
-
 ## Usage
-Both static html fields and dynamically added fields can be skipped. The static html fields have, or are contained within elements that have, the attribute `data-skip-on-tab="true"`. They are initialized with `JoelPurra.SkipOnTab.init();`. Dynamic fields are initialized in code after adding them to the DOM.
 
-Elements that can be focused/tabbed are `<input>`, `<select>`, `<textarea>`, `<button>` and `<a href="...">` (the `href` attribute must exist). These are also the elements that can be skipped.
+### HTML
 
 ```html
 <!-- Can be applied to skippable elements one by one -->
@@ -28,18 +24,21 @@ Elements that can be focused/tabbed are `<input>`, `<select>`, `<textarea>`, `<b
 
 <input type="button" value="This button is not skipped" />
 
+<!-- Can be applied using a class name -->
+<input type="text" value="" class="skip-on-tab" />
+
 <!-- Can be applied to all skippable elements within a container -->
 <ol data-skip-on-tab="true">
-	<li><input type="checkbox" /> Textbox</li>
-	<li><input type="checkbox" /> Another textbox</li>
+	<li><input type="checkbox" /> Checkbox</li>
+	<li><input type="checkbox" /> Another checkbox</li>
+
+	<!-- Can be explicitly exluded from initialization -->
+	<li><input type="checkbox" data-skip-on-tab="false" /> Important checkbox</li>
+	<li><input type="checkbox" class="disable-skip-on-tab" /> Another important checkbox</li>
 </ol>
-
-<!-- Can be applied using a class name -->
-<button type="submit" class="skip-on-tab">Click me</button>
-
-<!-- Can be explicitly exluded from initialization -->
-<input type="text" data-skip-on-tab="false" value="Try shift-tab from here" />
 ```
+
+### Javascript
 
 ```javascript
 // Enable skip on tab for existing elements marked with
@@ -47,11 +46,31 @@ Elements that can be focused/tabbed are `<input>`, `<select>`, `<textarea>`, `<b
 JoelPurra.SkipOnTab.init();
 
 // Apply skip on tab to the selected elements
-JoelPurra.SkipOnTab.skipOnTab($(selector));
+$(selector).skipOnTab();
 
-// NOTE: Elements marked with class .disable-skip-on-tab or
-// attribute [data-skip-on-tab=false] are always excluded.
+// Equivalent static function
+JoelPurra.SkipOnTab.skipOnTab($(selector));
 ```
+
+### Skippable elements
+Elements that can be focused/tabbed include `<input>`, `<select>`, `<textarea>`, `<button>` and `<a href="...">` (the `href` attribute must exist). These are also the elements that can be skipped.
+
+Note that `<input type="hidden" />`, `<a>` (without `href`), `disabled="disabled"` or `display: none;` elements cannot be focused.
+
+### Static elements
+Static skippable html elements can have, or be contained within elements that have, the attribute `data-skip-on-tab="true"` or the class `.skip-on-tab`. They are initialized when calling `JoelPurra.SkipOnTab.init();`.
+
+### Dynamic elements
+Dynamic elements are initialized to SkipOnTab in code after adding them to the DOM; `$("#my-optional-input").skipOnTab()`.
+
+### Containers
+When SkipOnTab is applied to html containers, like `<div>`, `<ul>` or `<fieldset>`, all skippable child elements are implicitly skipped.
+
+### Excluded elements
+Elements marked with class `.disable-skip-on-tab` or attribute `data-skip-on-tab=false` are not initialized by SkipOnTab.
+
+## Original purpose
+Developed to skip less used form fields in a web application for registering and administering letters. Examples of skipped fields are dropdowns with sensible defaults, the second address line fields in address forms and buttons for seldom used actions.
 
 ## Dependencies
 SkipOnTab's only runtime dependencies is [jQuery](http://jquery.com/).
