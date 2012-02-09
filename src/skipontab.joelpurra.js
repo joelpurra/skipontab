@@ -176,7 +176,7 @@ var JoelPurra = JoelPurra || {};
 			return;
 		}
 
-		atStartup = function () {
+		function atStartup() {
 
 			setTabKeyStatus(false, false);
 
