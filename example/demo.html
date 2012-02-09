@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SkipOnTab demo</title>
+	<style>
+		input, textarea, select, button
+		{
+			display: block;
+		}
+		
+		input, textarea, select
+		{
+			min-width: 20em;
+		}
+		
+		input[type=radio], input[type=checkbox]
+		{
+			min-width: 2em;
+		}
+		
+		input[type=radio], input[type=checkbox]
+		{
+			display: inline;
+		}
+		
+		kbd
+		{
+			border-width: 2px;
+			border-style: outset;
+			padding: 1px;
+			background-color: #eee;
+		}
+	</style>
+</head>
+<body>
+	<h1>
+		<a href="https://github.com/joelpurra/skipontab">SkipOnTab</a> demo</h1>
+	<p>
+		These fields are skipped when the user navigates the fields using the <kbd>tab</kbd>
+		key. To reach the normally skipped fields using keyboard navigation, just <kbd>tab</kbd>
+		past them and <kbd>shift</kbd>-<kbd>tab</kbd> back. Mouse or touch navigation is
+		unaffected.
+	</p>
+	<form>
+	<input type="text" autofocus="true" value="Try tab from here" />
+	<!-- Can be applied to elements one by one -->
+	<input type="text" data-skip-on-tab="true" />
+	<textarea data-skip-on-tab="true"></textarea>
+	<a href="http://joelpurra.se/" data-skip-on-tab="true">Joel Purra</a>
+	<input type="submit" value="This button is not skipped" />
+	<!-- Can be applied to all fields within a container -->
+	<ol data-skip-on-tab="true">
+		<li>
+			<input type="checkbox" />
+			Textbox</li>
+		<li>
+			<input type="checkbox" />
+			Another textbox</li>
+	</ol>
+	<select data-skip-on-tab="true">
+		<option>Drop down with a sensible default</option>
+		<option>Another option</option>
+	</select>
+	<a>Anchors without <code>href</code> are always skipped by the browser</a>
+	<!-- Can be applied using a class name -->
+	<button type="submit" class="skip-on-tab">
+		Click me</button>
+	<!-- Can be explicitly exluded from initialization -->
+	<input type="text" data-skip-on-tab="false" value="Try shift-tab from here" />
+	<select>
+		<option>-- Select one --</option>
+		<option>Drop down without sensible default</option>
+	</select>
+	<input type="password" value="oh noes you got me!" />
+	<select data-skip-on-tab="true" multiple="multiple">
+		<option>First </option>
+		<option>Second</option>
+		<option>Third</option>
+	</select>
+	<input type="number" min="-1000" step="100" max="1000" value="500" />
+	<p>
+		Tabbing past here will usually put you in the address bar of the browser.
+	</p>
+	</form>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="../src/skipontab.joelpurra.js"></script>
+	<script>
+//<![CDATA[
+
+		// Initialization of SkipOnTab
+		// This call takes care of all elements with the attribute data-skip-on-tab="true"
+		JoelPurra.SkipOnTab.init();
+
+		$("form")
+			.submit(simulateSubmitting);
+
+		function simulateSubmitting(event)
+		{
+			event.preventDefault();
+
+			if (confirm("Simulating that the form has been submitted.\n\nWould you like to reload the page?"))
+			{
+				location.reload();
+			}
+
+			return false;
+		}
+//]]>
+	</script>
+</body>
+</html>
