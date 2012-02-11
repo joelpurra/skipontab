@@ -41,10 +41,6 @@ This library is most useful when the users are familiar with the form, and uses 
 ### Javascript
 
 ```javascript
-// Enable skip on tab for existing elements marked with
-// class .skip-on-tab or attribute [data-skip-on-tab=true]
-JoelPurra.SkipOnTab.init();
-
 // Apply skip on tab to the selected elements
 $(selector).skipOnTab();
 
@@ -58,7 +54,7 @@ Elements that can be focused/tabbed include `<input>`, `<select>`, `<textarea>`,
 Note that `<input type="hidden" />`, `<a>` (without `href`), `disabled="disabled"` or `display: none;` elements cannot be focused.
 
 ### Static elements
-Static skippable html elements can have, or be contained within elements that have, the attribute `data-skip-on-tab="true"` or the class `.skip-on-tab`. They are initialized when calling `JoelPurra.SkipOnTab.init();`.
+Static skippable html elements can have, or be contained within elements that have, the attribute `data-skip-on-tab="true"` or the class `.skip-on-tab`. They are initialized automatically when the library has been loaded/executed.
 
 ### Dynamic elements
 Dynamic elements are initialized to SkipOnTab in code after adding them to the DOM; `$("#my-optional-input").skipOnTab()`.
