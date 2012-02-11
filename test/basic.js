@@ -234,13 +234,12 @@
 
 		// Enabling SkipOnTab on the element (class/attribute)
 		{
-			function assertElementStartAEnd(fnc)
+			function assertElementStartAEnd()
 			{
 				$("#start").focus();
 
 				assertId(getFocusedElement(), "start");
 
-				// TODO: Combine duplicated parts from assertElementStartXXXEnd and assertStartXXXEnd
 				return $.when()
 				// Skip all skippable elements
 					.pipe(tabAssertId("end"))
@@ -251,13 +250,12 @@
 					.pipe(start);
 			}
 
-			function assertElementStartABCEnd(fnc)
+			function assertElementStartABCEnd()
 			{
 				$("#start").focus();
 
 				assertId(getFocusedElement(), "start");
 
-				// TODO: Combine duplicated parts from assertElementStartXXXEnd and assertStartXXXEnd
 				return $.when()
 				// Skip all skippable elements
 					.pipe(tabAssertId("b"))
@@ -271,13 +269,12 @@
 					.pipe(start);
 			}
 
-			function assertElementStartACEnd(fnc)
+			function assertElementStartACEnd()
 			{
 				$("#start").focus();
 
 				assertId(getFocusedElement(), "start");
 
-				// TODO: Combine duplicated parts from assertElementStartXXXEnd and assertStartXXXEnd
 				return $.when()
 				// Skip all skippable elements
 					.pipe(tabAssertId("end"))
@@ -313,14 +310,7 @@
 
 						assertId(getFocusedElement(), "start");
 					})
-				// TODO: Combine duplicated parts from assertElementStartXXXEnd and assertStartXXXEnd
-				// Skip all skippable elements
-					.pipe(tabAssertId("end"))
-				// Reverse tab back to the start
-					.pipe(tabAssertId("a", true))
-					.pipe(tabAssertId("start", true))
-				// Async test, must run start()
-					.pipe(start);
+					.pipe(assertElementStartAEnd);
 			}
 
 			function assertStartABCEnd(fnc)
@@ -348,17 +338,7 @@
 
 						assertId(getFocusedElement(), "start");
 					})
-				// TODO: Combine duplicated parts from assertElementStartXXXEnd and assertStartXXXEnd
-				// Skip all skippable elements
-					.pipe(tabAssertId("b"))
-					.pipe(tabAssertId("end"))
-				// Reverse tab back to the start
-					.pipe(tabAssertId("c", true))
-					.pipe(tabAssertId("b", true))
-					.pipe(tabAssertId("a", true))
-					.pipe(tabAssertId("start", true))
-				// Async test, must run start()
-					.pipe(start);
+					.pipe(assertElementStartABCEnd);
 			}
 
 			function assertStartACEnd(fnc)
@@ -384,15 +364,7 @@
 
 						assertId(getFocusedElement(), "start");
 					})
-				// TODO: Combine duplicated parts from assertElementStartXXXEnd and assertStartXXXEnd
-				// Skip all skippable elements
-					.pipe(tabAssertId("end"))
-				// Reverse tab back to the start
-					.pipe(tabAssertId("c", true))
-					.pipe(tabAssertId("a", true))
-					.pipe(tabAssertId("start", true))
-				// Async test, must run start()
-					.pipe(start);
+					.pipe(assertElementStartACEnd);
 			}
 		}
 	}
@@ -415,28 +387,14 @@
 
 		asyncTest("Static elements", 7, function ()
 		{
-			var $staticContainer = $("#static-elements-initialized-at-startup");
+			var $staticContainer = $("#elements-initialized-at-startup");
 
-			$("#static-start").focus();
-
-			assertId(getFocusedElement(), "static-start");
-
-			$.when()
-			// Skip all skippable elements
-				.pipe(tabAssertId("static-b"))
-				.pipe(tabAssertId("static-end"))
-			// Reverse tab back to the start
-				.pipe(tabAssertId("static-c", true))
-				.pipe(tabAssertId("static-b", true))
-				.pipe(tabAssertId("static-a", true))
-				.pipe(tabAssertId("static-start", true))
-			// Run the static tests only once
+			assertElementStartABCEnd()
 				.pipe(function ()
 				{
+					// Run the static tests only once
 					$staticContainer.remove();
-				})
-			// Async test, must run start()
-				.pipe(start);
+				});
 		});
 
 	} ());
@@ -576,7 +534,7 @@
 			setup: normalSetup
 		});
 
-		asyncTest("Element", 9, function ()
+		asyncTest("Element", 10, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
@@ -589,7 +547,7 @@
 			});
 		});
 
-		asyncTest("Container", 9, function ()
+		asyncTest("Container", 10, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
@@ -612,7 +570,7 @@
 			setup: normalSetup
 		});
 
-		asyncTest("With class name", 9, function ()
+		asyncTest("With class name", 10, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
@@ -622,7 +580,7 @@
 			assertStartAEnd(fnSkipA);
 		});
 
-		asyncTest("With data attribute", 9, function ()
+		asyncTest("With data attribute", 10, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
@@ -632,7 +590,7 @@
 			assertStartAEnd(fnSkipA);
 		});
 
-		asyncTest("Container with class name", 9, function ()
+		asyncTest("Container with class name", 10, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
@@ -643,7 +601,7 @@
 			assertStartAEnd(fnSkipContainer);
 		});
 
-		asyncTest("Container with data attribute", 9, function ()
+		asyncTest("Container with data attribute", 10, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
@@ -654,7 +612,7 @@
 			assertStartAEnd(fnSkipContainer);
 		});
 
-		asyncTest("Container with nested skippables", 9, function ()
+		asyncTest("Container with nested skippables", 10, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
@@ -666,7 +624,7 @@
 			assertStartAEnd(fnSkipContainer);
 		});
 
-		asyncTest("Container excludes by class name", 16, function ()
+		asyncTest("Container excludes by class name", 17, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
@@ -679,7 +637,7 @@
 			assertStartABCEnd(fnSkipContainer);
 		});
 
-		asyncTest("Container excludes by data attribute", 16, function ()
+		asyncTest("Container excludes by data attribute", 17, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
@@ -692,7 +650,7 @@
 			assertStartABCEnd(fnSkipContainer);
 		});
 
-		asyncTest("Container excludes hidden", 12, function ()
+		asyncTest("Container excludes hidden", 13, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
@@ -705,7 +663,7 @@
 			assertStartACEnd(fnSkipContainer);
 		});
 
-		asyncTest("Container excludes disabled", 12, function ()
+		asyncTest("Container excludes disabled", 13, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
@@ -718,7 +676,7 @@
 			assertStartACEnd(fnSkipContainer);
 		});
 
-		asyncTest("Container excludes anchors without href", 12, function ()
+		asyncTest("Container excludes anchors without href", 13, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
@@ -731,20 +689,17 @@
 			assertStartACEnd(fnSkipContainer);
 		});
 
-		asyncTest("Element", 9, function ()
+		asyncTest("Element", 10, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
 				.append('<input id="a" type="text" value="text field that is skipped" />')
 				.append('<input id="end" type="submit" value="submit button that is at the end of the skipped elements" />');
 
-			assertStartAEnd(function ()
-			{
-				$("#a").skipOnTab();
-			});
+			assertStartAEnd(fnSkipA);
 		});
 
-		asyncTest("Container", 9, function ()
+		asyncTest("Container", 10, function ()
 		{
 			$container
 				.append('<input id="start" type="text" value="text field that is the starting point" />')
