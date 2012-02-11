@@ -43,6 +43,11 @@ var JoelPurra = JoelPurra || {};
 			};
 		}
 
+		function resetTabKeyStatus()
+		{
+			setTabKeyStatus(false, false, undefined);
+		}
+
 		// Copy of function in plusastab.joelpurra.js/skipontab.joelpurra.js
 		function findNextFocusable($from, offset) {
 
@@ -126,41 +131,34 @@ var JoelPurra = JoelPurra || {};
 			return false;
 		}
 
-		function checkTabKeyDown(event) {
+		function checkTabKey(event) {
 
 			if (isTabkey(event)) {
 
 				setTabKeyStatus(true, event.shiftKey);
 
-			} else {
-
-				setTabKeyStatus(false, false, undefined);
-			}
-
-
-			return;
-		}
-
-		function checkTabKeyUp(event) {
-
 			function checkTabKeyUpInner() {
 
-				setTabKeyStatus(false, false, undefined);
+				resetTabKeyStatus()
 			}
 
 			setTimeout(checkTabKeyUpInner, 1);
+
+			} else {
+
+				resetTabKeyStatus()
+			}
 
 			return;
 		}
 
 		function initializeAtLoad() {
 
-			setTabKeyStatus(false, false);
+			resetTabKeyStatus();
 
 			$(".skip-on-tab, [data-skip-on-tab=true]").skipOnTab();
 
-			$(document).keydown(checkTabKeyDown);
-			$(document).keydown(checkTabKeyUp);
+			$(document).keydown(checkTabKey);
 		}
 	}
 
