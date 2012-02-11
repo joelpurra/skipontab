@@ -22,6 +22,8 @@ var JoelPurra = JoelPurra || {};
 	namespace.SkipOnTab = function () {
 	};
 
+	var eventNamespace = ".SkipOnTab";
+
 	var keyStatus = {};
 
 	// Keys from
@@ -30,7 +32,8 @@ var JoelPurra = JoelPurra || {};
 
 	// TODO: get code for :focusable, :tabbable from jQuery UI?
 	var focusable = ":input, a[href]";
-	var disableskipOnTab = ".disable-skip-on-tab, [data-skip-on-tab=false]";
+	var enableSkipOnTab = ".skip-on-tab, [data-skip-on-tab=true]";
+	var disableSkipOnTab = ".disable-skip-on-tab, [data-skip-on-tab=false]";
 
 	// Private functions
 	{
@@ -81,7 +84,7 @@ var JoelPurra = JoelPurra || {};
 
 			if (keyStatus.isTab
 				&& keyStatus.$target !== undefined
-				&& keyStatus.$target.length !== 0) {
+				&& keyStatus.$target.length === 1) {
 
 				if (!keyStatus.isReverse) {
 
@@ -96,10 +99,20 @@ var JoelPurra = JoelPurra || {};
 
 		function checkSkipOnTabFocus(event) {
 
+			var $target = $(event.target);
+
+			if ($target.is(disableSkipOnTab)
+				|| $target.parents(disableSkipOnTab).length > 0
+				|| (!$target.is(enableSkipOnTab)
+					&& $target.parents(enableSkipOnTab).length === 0))
+			{
+				return;
+			}
+
 			setTabKeyStatus(
 				keyStatus.isTab,
 				keyStatus.isReverse,
-				$(event.target));
+				$target);
 
 			var wasDone = performEmulatedTabbing();
 
@@ -137,16 +150,11 @@ var JoelPurra = JoelPurra || {};
 
 				setTabKeyStatus(true, event.shiftKey);
 
-			function checkTabKeyUpInner() {
-
-				resetTabKeyStatus()
-			}
-
-			setTimeout(checkTabKeyUpInner, 1);
+				setTimeout(resetTabKeyStatus, 1);
 
 			} else {
 
-				resetTabKeyStatus()
+				resetTabKeyStatus();
 			}
 
 			return;
@@ -156,9 +164,10 @@ var JoelPurra = JoelPurra || {};
 
 			resetTabKeyStatus();
 
-			$(".skip-on-tab, [data-skip-on-tab=true]").skipOnTab();
+			$(enableSkipOnTab).skipOnTab();
 
-			$(document).keydown(checkTabKey);
+			$(document).on("keydown" + eventNamespace, checkTabKey);
+			$(document).on("focusin" + eventNamespace, checkSkipOnTabFocus);
 		}
 	}
 
@@ -169,24 +178,18 @@ var JoelPurra = JoelPurra || {};
 			return $elements.each(function () {
 					
 				var $this = $(this);
-			
-				var $onlyFocusable = $this
-										.add($this
-												.find(focusable))
-										.filter(focusable);
 
-				$onlyFocusable
-					.not(disableskipOnTab)
-					.not("[data-skip-on-tab-initialized=true]")
-					.attr("data-skip-on-tab-initialized", "true")
-					.focus(checkSkipOnTabFocus);
+				$this
+					.not(disableSkipOnTab)
+					.not(enableSkipOnTab)
+					.attr("data-skip-on-tab", "true");
 			});
 		};
 
 		$.fn.extend({
 			skipOnTab: function () {
 
-				return namespace.SkipOnTab.skipOnTab($(this));
+				return namespace.SkipOnTab.skipOnTab(this);
 			}
 		});
 	}

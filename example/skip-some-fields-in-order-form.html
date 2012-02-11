@@ -243,9 +243,8 @@
 							.attr("required", "required")
 							.val("0"))));
 
-			// Since the quantity input element is added dynamically, SkipOnTab 
-			// needs to be called to initialize event listeners on it
-			// Programmatically setting focus is not affected by SkipOnTab
+			// Enable SkipOnTab on the dynamically added quantity input element by calling .skipOnTab()
+			// Programmatically setting .focus() is not affected by SkipOnTab
 			$("#" + inputId)
 				.skipOnTab()
 				.focus();
