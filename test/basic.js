@@ -189,11 +189,6 @@
 			$container = $("#qunit-fixture");
 		}
 
-		function initSkipOnTabContainer()
-		{
-			JoelPurra.SkipOnTab.skipOnTab($container);
-		}
-
 		function fnSkipA()
 		{
 			$("#a").skipOnTab();
