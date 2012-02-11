@@ -19,16 +19,8 @@ var JoelPurra = JoelPurra || {};
 // skipontab.joelpurra.js and plusastab.joelpurra.js?
 (function ($, namespace) {
 
-	// Add options defaults here
-	var internalDefaults = {
-	};
-
-	var options = internalDefaults;
-
 	namespace.SkipOnTab = function () {
 	};
-
-	var initDone = false;
 
 	var keyStatus = {};
 
@@ -99,11 +91,6 @@ var JoelPurra = JoelPurra || {};
 
 		function checkSkipOnTabFocus(event) {
 
-			if (!initDone) {
-
-				return;
-			}
-
 			setTabKeyStatus(
 				keyStatus.isTab,
 				keyStatus.isReverse,
@@ -141,11 +128,6 @@ var JoelPurra = JoelPurra || {};
 
 		function checkTabKeyDown(event) {
 
-			if (!initDone) {
-
-				return;
-			}
-
 			if (isTabkey(event)) {
 
 				setTabKeyStatus(true, event.shiftKey);
@@ -163,11 +145,6 @@ var JoelPurra = JoelPurra || {};
 
 			function checkTabKeyUpInner() {
 
-				if (!initDone) {
-
-					return;
-				}
-
 				setTabKeyStatus(false, false, undefined);
 			}
 
@@ -176,57 +153,47 @@ var JoelPurra = JoelPurra || {};
 			return;
 		}
 
-		function atStartup() {
+		function initializeAtLoad() {
 
 			setTabKeyStatus(false, false);
 
+			$(".skip-on-tab, [data-skip-on-tab=true]").skipOnTab();
+
 			$(document).keydown(checkTabKeyDown);
 			$(document).keydown(checkTabKeyUp);
-
-			namespace.SkipOnTab
-				.skipOnTab($(".skip-on-tab, [data-skip-on-tab=true]"));
 		}
 	}
 
 	// Public functions
 	{
-		namespace.SkipOnTab.init = function (userOptions) {
-
-			// Merge the options onto the current options
-			// (usually the default values)
-			$.extend(true, options, userOptions);
-
-			atStartup();
-
-			initDone = true;
-		};
-
 		namespace.SkipOnTab.skipOnTab = function ($elements) {
 
-			var $onlyFocusable = $elements
-									.add($elements
-											.find(focusable))
-									.filter(focusable);
+			return $elements.each(function () {
+					
+				var $this = $(this);
+			
+				var $onlyFocusable = $this
+										.add($this
+												.find(focusable))
+										.filter(focusable);
 
-			$onlyFocusable
-				.not(disableskipOnTab)
-				.not("[data-skip-on-tab-initialized=true]")
-				.attr("data-skip-on-tab-initialized", "true")
-				.focus(checkSkipOnTabFocus);
+				$onlyFocusable
+					.not(disableskipOnTab)
+					.not("[data-skip-on-tab-initialized=true]")
+					.attr("data-skip-on-tab-initialized", "true")
+					.focus(checkSkipOnTabFocus);
+			});
 		};
 
 		$.fn.extend({
-			skipOnTab: function( type, options ) {
+			skipOnTab: function () {
 
-				return this.each(function() {
-					
-					var $this = $(this);
-
-					namespace.SkipOnTab.skipOnTab($this);
-				});
+				return namespace.SkipOnTab.skipOnTab($(this));
 			}
 		});
-
 	}
+
+	// SkipOnTab initializes all static elements when jQuery is ready
+	$(initializeAtLoad);
 
 } (jQuery, JoelPurra));
