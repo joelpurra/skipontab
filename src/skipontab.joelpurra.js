@@ -161,8 +161,6 @@ var JoelPurra = JoelPurra || {};
 
 			resetTabKeyStatus();
 
-			$(enableSkipOnTab).skipOnTab();
-
 			$(document).on("keydown" + eventNamespace, checkTabKey);
 			$(document).on("focusin" + eventNamespace, checkSkipOnTabFocus);
 		}
@@ -191,7 +189,7 @@ var JoelPurra = JoelPurra || {};
 		});
 	}
 
-	// SkipOnTab initializes all static elements when jQuery is ready
+	// SkipOnTab initializes listeners when jQuery is ready
 	$(initializeAtLoad);
 
 } (jQuery, JoelPurra));
