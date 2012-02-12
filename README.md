@@ -57,13 +57,13 @@ Note that `<input type="hidden" />`, `<a>` (without `href`), `disabled="disabled
 Static skippable html elements can have, or be contained within elements that have, the attribute `data-skip-on-tab="true"` or the class `.skip-on-tab`. They are initialized automatically when the library has been loaded/executed.
 
 ### Dynamic elements
-Dynamic elements are initialized to SkipOnTab in code after adding them to the DOM; `$("#my-optional-input").skipOnTab()`.
+Dynamic elements are initialized to SkipOnTab in code after adding them to the DOM; `$("#my-optional-input").skipOnTab()`. This is not necessary if the added element already is contained within an element that is marked for skipping. You can also call `.skipOnTab()` on containers.
 
 ### Containers
-When SkipOnTab is applied to html containers, like `<div>`, `<ul>` or `<fieldset>`, all skippable child elements are implicitly skipped.
+When SkipOnTab is applied to html containers, like `<div>`, `<ul>` or `<fieldset>`, all skippable child elements are implicitly skipped. This applies to static html and subsequently added child elements.
 
-### Excluded elements
-Elements marked with class `.disable-skip-on-tab` or attribute `data-skip-on-tab=false` are not initialized by SkipOnTab.
+### Disabling skipping
+Skippable elements, or containers with skippable children, marked with class `.disable-skip-on-tab` or attribute `data-skip-on-tab=false` are never skipped. If skipping is disabled for the element when it receives focus, or any of its elements parents, it will not be skipped. Disabling skipping takes precedence over enabling skipping.
 
 ## Original purpose
 Developed to skip less used form fields in a web application for registering and administering letters. Examples of skipped fields are dropdowns with sensible defaults, the second address line fields in address forms and buttons for seldom used actions.
