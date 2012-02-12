@@ -73,8 +73,9 @@ SkipOnTab's only runtime dependencies is [jQuery](http://jquery.com/).
 
 ## Todo
 
-* [jQuery UI](http://jqueryui.com/) has better code for `:focusable`/`:tabbable`. Investigate how to implement it.
-* Investigate `contenteditable="true"`.
+* [jQuery UI](http://jqueryui.com/) has better code for [`:focusable`](https://github.com/jquery/jquery-ui/blob/master/ui/jquery.ui.core.js#L210)/[`:tabbable`](https://github.com/jquery/jquery-ui/blob/master/ui/jquery.ui.core.js#L214). Investigate how to implement it.
+* Investigate [`[contenteditable]`](http://www.whatwg.org/specs/web-apps/current-work/#contenteditable).
+* Break out reusable <kbd>tab</kbd> key `.focus()` emulator functions.
 * Break out reusable key press functions from tests.
 
 ## License
