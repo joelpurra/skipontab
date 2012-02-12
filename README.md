@@ -72,29 +72,8 @@ Skippable elements, or containers with skippable children, marked with class `.d
 ## Original purpose
 Developed to skip less used form fields in a web application for registering and administering letters. Examples of skipped fields are dropdowns with sensible defaults, the second address line fields in address forms and buttons for seldom used actions.
 
-## SkipOnTab versus tabindex
-SkipOnTab does *not* rely on setting [`tabindex`](http://www.w3.org/TR/html4/interact/forms.html#h-17.11.1) on elements - it uses javascript events instead. Having some experience in trying to use and maintain a site using tabindex, I would not use it again.
-
-Drawbacks when using tabindex
-
-* It must be used consistently throughout:
- * [The entire form or you'll confuse the users](http://nickdenardis.com/2009/09/23/avoid-frustrating-users-with-tabindex/). Focus might end up somewhere unexpected in the form, or drop out of the form all toghether, when an element is missing a tabindex.
- * All forms in the entire page in order to avoid unexpected orders. This includes site-wide headers and footer.
- * Any re-used page components. Tabindex ranges cannot overlap, nor can they be used in different orders on different pages without re-calculating tabindex (perhaps by using a base value per component instance).
-* Setting and keeping track of tabindex, be it statically or dynamically, can become a hassle when inserting/showing a new focusable element or the page layout is changed.
-* An element skipped with tabindex cannot be reached by tabbing without
- * Tabbing through the reset of the form (if it has a tabindex just higher than the tabindex of the last focusable element in the form).
- * Tabbing through all the menus (since they are usually at the top, before the form) and links on the page.
-
-Getting and setting tabindex [doesn't act consistently across browsers](http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/), but the [Keyboard Accessibility Plugin](http://wiki.fluidproject.org/display/fluid/Keyboard+Accessibility+Plugin+API) should help with that and a lot of other useful things.
-
-Drawbacks when using SkipOnTab
-
-* It requires [javascript enabled](http://enable-javascript.com/) browsers.
-* It requires [jQuery](http://jquery.com/).
-* It only moves to the next focusable element in the form/page, not to a specific element.
-
-SkipOnTab is fully dynamic in the way it detects and moves focus.
+## [SkipOnTab versus tabindex](https://github.com/joelpurra/skipontab/wiki/SkipOnTab-versus-tabindex)
+SkipOnTab does *not* rely on setting [`tabindex`](http://www.w3.org/TR/html4/interact/forms.html#h-17.11.1) on elements - it uses javascript events instead. Read more on the wiki page [SkipOnTab versus tabindex](https://github.com/joelpurra/skipontab/wiki/SkipOnTab-versus-tabindex).
 
 ## Dependencies
 SkipOnTab's only runtime dependencies is [jQuery](http://jquery.com/).
