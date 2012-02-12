@@ -71,7 +71,14 @@
 		// DEBUG
 		function logArguments()
 		{
-			console.log.call(console, arguments);
+			try
+			{
+				console.log.call(console, arguments);
+
+			} catch (e)
+			{
+				// Could show an alert message, but what the hell
+			}
 		}
 
 		function performDeferredAsync(fnc, timeout)
@@ -210,9 +217,17 @@
 	{
 		function assertId($element, id)
 		{
+			// DEBUG
 			if ($element.attr("id") !== id)
 			{
-				console.error([$element, $element.attr("id"), id]);
+				try
+				{
+					console.error([$element, $element.attr("id"), id]);
+
+				} catch (e)
+				{
+					// Could show an alert message, but what the hell
+				}
 			}
 
 			strictEqual($element.attr("id"), id, "The id did not match for element " + $element);
