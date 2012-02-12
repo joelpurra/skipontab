@@ -3,7 +3,7 @@
 /// <reference path="jquery-ui/tests/jquery.simulate.js" />
 /// <reference path="../src/skipontab.joelpurra.js" />
 
-/*jslint browser: true, vars: true, white: true, regexp: true, maxlen: 120*/
+/*jslint browser: true, vars: true, white: true, regexp: true, maxlen: 150*/
 /*global JoelPurra, jQuery, console, module, test, asyncTest, start, ok, strictEqual, notStrictEqual*/
 
 (function ($)
@@ -187,7 +187,7 @@
 	{
 		function normalSetup()
 		{
-			var $qunitFixture = $("#qunit-fixture")
+			var $qunitFixture = $("#qunit-fixture");
 			var $div = $("<div />");
 
 			$div.appendTo($qunitFixture);

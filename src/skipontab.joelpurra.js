@@ -109,10 +109,7 @@ var JoelPurra = JoelPurra || {};
 				return;
 			}
 
-			setTabKeyStatus(
-				keyStatus.isTab,
-				keyStatus.isReverse,
-				$target);
+			setTabKeyStatus(keyStatus.isTab, keyStatus.isReverse, $target);
 
 			var wasDone = performEmulatedTabbing();
 
