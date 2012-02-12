@@ -73,8 +73,9 @@
 	<p>
 		Both static html fields and dynamically added fields are skipped in this example.
 		The static html fields have, or are contained within elements that have, the attribute
-		<code>data-skip-on-tab="true"</code>. Dynamic fields are initialized in code after
-		adding them to the DOM.
+		<code>data-skip-on-tab="true"</code>. The dynamically added fields are children
+		of a container that is marked to be skipped, so explicitly enabling skipping is
+		not necessary.
 	</p>
 	<h2>
 		Register phone order into order administration system
@@ -243,11 +244,10 @@
 							.attr("required", "required")
 							.val("0"))));
 
-			// Since the quantity input element is added dynamically, SkipOnTab 
-			// needs to be called to initialize event listeners on it
-			// Programmatically setting focus is not affected by SkipOnTab
+			// Skipping of the new element is implicit, since it is inside a container that
+			// is already marked for skipping with the data attribute
+			// Programmatically setting .focus() is not affected by SkipOnTab
 			$("#" + inputId)
-				.skipOnTab()
 				.focus();
 		}
 

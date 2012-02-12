@@ -28,14 +28,14 @@
 	<div id="qunit-fixture">
 	</div>
 	<input id="out-of-bounds-below" type="text" value="Below the normal test area" />
-	<div id="static-elements-initialized-at-startup">
-		<input id="static-start" type="text" value="text field that is the starting point" />
-		<input id="static-a" type="text" value="text field that is skipped" class="skip-on-tab" />
-		<div id="static-container" data-skip-on-tab="true">
-			<input id="static-b" type="text" value="text field that is not skipped" class="disable-skip-on-tab" />
-			<input id="static-c" type="text" value="text field that is skipped" />
+	<div id="elements-initialized-at-startup">
+		<input id="start" type="text" value="text field that is the starting point" />
+		<input id="a" type="text" value="text field that is skipped" class="skip-on-tab" />
+		<div id="container" data-skip-on-tab="true">
+			<input id="b" type="text" value="text field that is not skipped" class="disable-skip-on-tab" />
+			<input id="c" type="text" value="text field that is skipped" />
 		</div>
-		<input id="static-end" type="submit" value="submit button that is at the end of the skipped elements" />
+		<input id="end" type="submit" value="submit button that is at the end of the skipped elements" />
 	</div>
 </body>
 </html>

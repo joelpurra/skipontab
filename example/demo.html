@@ -30,6 +30,12 @@
 			padding: 1px;
 			background-color: #eee;
 		}
+		
+		.border
+		{
+			padding: 0.3em;
+			border: 1px dotted #999;
+		}
 	</style>
 </head>
 <body>
@@ -52,10 +58,13 @@
 	<ol data-skip-on-tab="true">
 		<li>
 			<input type="checkbox" />
-			Textbox</li>
+			Textbox, skipped</li>
 		<li>
 			<input type="checkbox" />
-			Another textbox</li>
+			Another textbox, skipped</li>
+		<li>
+			<!-- Can be explicitly exluded from initialization -->
+			<input type="checkbox" data-skip-on-tab="false" />Important checkbox, not skipped</li>
 	</ol>
 	<select data-skip-on-tab="true">
 		<option>Drop down with a sensible default</option>
@@ -65,18 +74,29 @@
 	<!-- Can be applied using a class name -->
 	<button type="submit" class="skip-on-tab">
 		Click me</button>
-	<!-- Can be explicitly exluded from initialization -->
-	<input type="text" data-skip-on-tab="false" value="Try shift-tab from here" />
+	<input type="text" value="Try shift-tab from here" />
 	<select>
 		<option>-- Select one --</option>
 		<option>Drop down without sensible default</option>
 	</select>
 	<input type="password" value="oh noes you got me!" />
+	<div data-skip-on-tab="true" class="border">
+		<button type="submit">
+			Skipped inside skipped container</button>
+		<div data-skip-on-tab="false" class="border">
+			<button type="submit">
+				Not skipped inside unskipped subcontainer to skipped container</button>
+		</div>
+		<button type="submit">
+			Skipped inside skipped container</button>
+	</div>
 	<select data-skip-on-tab="true" multiple="multiple">
 		<option>First </option>
 		<option>Second</option>
 		<option>Third</option>
 	</select>
+	<button id="click-to-add-checkbox" type="button">
+		Click to add skipped checkbox after button</button>
 	<input type="number" min="-1000" step="100" max="1000" value="500" />
 	<p>
 		Tabbing past here will usually put you in the address bar of the browser.
@@ -89,6 +109,23 @@
 
 		$("form")
 			.submit(simulateSubmitting);
+
+		$("#click-to-add-checkbox")
+			.click(addCheckboxAfter);
+
+		function addCheckboxAfter(event)
+		{
+			var $target = $(event.target);
+
+			// Explicitly enabling skipping on new checkbox
+			var $checkbox = $('<input />')
+								.attr("type", "checkbox")
+								.skipOnTab();
+
+			$checkbox.insertAfter($target);
+
+			$target.focus();
+		}
 
 		function simulateSubmitting(event)
 		{
