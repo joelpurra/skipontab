@@ -265,6 +265,25 @@
 					.pipe(start);
 			}
 
+			function assertElementStartBEnd()
+			{
+				$("#start").focus();
+
+				assertId(getFocusedElement(), "start");
+
+				return $.when()
+				// Skip all skippable elements
+					.pipe(tabAssertId("b"))
+					.pipe(tabAssertId("end"))
+				// Reverse tab back to the start
+					.pipe(tabAssertId("c", true))
+					.pipe(tabAssertId("b", true))
+					.pipe(tabAssertId("a", true))
+					.pipe(tabAssertId("start", true))
+				// Async test, must run start()
+					.pipe(start);
+			}
+
 			function assertElementStartABCEnd()
 			{
 				$("#start").focus();
@@ -326,6 +345,31 @@
 						assertId(getFocusedElement(), "start");
 					})
 					.pipe(assertElementStartAEnd);
+			}
+
+			function assertStartBEnd(fnc)
+			{
+				$("#start").focus();
+
+				assertId(getFocusedElement(), "start");
+
+				// Forward tab as normal when disabling skipping has not been initialized
+				return $.when()
+					.pipe(tabAssertId("end"))
+				// Reverse tab as normal when disabling skipping has not been initialized
+					.pipe(tabAssertId("c", true))
+					.pipe(tabAssertId("b", true))
+					.pipe(tabAssertId("a", true))
+					.pipe(tabAssertId("start", true))
+				// Initialize SkipOnTab
+					.pipe(
+					function ()
+					{
+						fnc();
+
+						assertId(getFocusedElement(), "start");
+					})
+					.pipe(assertElementStartBEnd);
 			}
 
 			function assertStartABCEnd(fnc)
@@ -576,6 +620,66 @@
 			});
 		});
 
+		asyncTest("Element explicit enable", 10, function ()
+		{
+			$container
+				.append('<input id="start" type="text" value="text field that is the starting point" />')
+				.append('<input id="a" type="text" value="text field that is skipped" />')
+				.append('<input id="end" type="submit" value="submit button that is at the end of the skipped elements" />');
+
+			assertStartAEnd(function ()
+			{
+				JoelPurra.SkipOnTab.skipOnTab($("#a"), true);
+			});
+		});
+
+		asyncTest("Container explicit enable", 10, function ()
+		{
+			$container
+				.append('<input id="start" type="text" value="text field that is the starting point" />')
+				.append($('<div id="container" />')
+					.append('<input id="a" type="text" value="text field that is skipped" />'))
+				.append('<input id="end" type="submit" value="submit button that is at the end of the skipped elements" />');
+
+			assertStartAEnd(function ()
+			{
+				JoelPurra.SkipOnTab.skipOnTab($("#container"), true);
+			});
+		});
+
+		asyncTest("Element explicit disable", 14, function ()
+		{
+			$container
+				.append('<input id="start" type="text" value="text field that is the starting point" />')
+				.append($('<div id="container" data-skip-on-tab="true" />')
+					.append('<input id="a" type="text" value="text field that is skipped" />')
+					.append('<input id="b" type="text" value="text field that is not skipped" />')
+					.append('<input id="c" type="text" value="text field that is skipped" />'))
+				.append('<input id="end" type="submit" value="submit button that is at the end of the skipped elements" />');
+
+			assertStartBEnd(function ()
+			{
+				JoelPurra.SkipOnTab.skipOnTab($("#b"), false);
+			});
+		});
+
+		asyncTest("Container explicit disable", 14, function ()
+		{
+			$container
+				.append('<input id="start" type="text" value="text field that is the starting point" />')
+				.append($('<div id="outer-container" data-skip-on-tab="true" />')
+					.append('<input id="a" type="text" value="text field that is skipped" />')
+					.append($('<div id="inner-container" />')
+						.append('<input id="b" type="text" value="text field that is not skipped" />'))
+					.append('<input id="c" type="text" value="text field that is skipped" />'))
+				.append('<input id="end" type="submit" value="submit button that is at the end of the skipped elements" />');
+
+			assertStartBEnd(function ()
+			{
+				JoelPurra.SkipOnTab.skipOnTab($("#inner-container"), false);
+			});
+		});
+
 	} ());
 
 	(function ()
@@ -725,6 +829,39 @@
 			assertStartAEnd(fnSkipContainer);
 		});
 
+		asyncTest("Element explicit disable", 14, function ()
+		{
+			$container
+				.append('<input id="start" type="text" value="text field that is the starting point" />')
+				.append($('<div id="container" data-skip-on-tab="true" />')
+					.append('<input id="a" type="text" value="text field that is skipped" />')
+					.append('<input id="b" type="text" value="text field that is not skipped" />')
+					.append('<input id="c" type="text" value="text field that is skipped" />'))
+				.append('<input id="end" type="submit" value="submit button that is at the end of the skipped elements" />');
+
+			assertStartBEnd(function ()
+			{
+				$("#b").skipOnTab(false);
+			});
+		});
+
+		asyncTest("Container explicit disable", 14, function ()
+		{
+			$container
+				.append('<input id="start" type="text" value="text field that is the starting point" />')
+				.append($('<div id="outer-container" data-skip-on-tab="true" />')
+					.append('<input id="a" type="text" value="text field that is skipped" />')
+					.append($('<div id="inner-container" />')
+						.append('<input id="b" type="text" value="text field that is not skipped" />'))
+					.append('<input id="c" type="text" value="text field that is skipped" />'))
+				.append('<input id="end" type="submit" value="submit button that is at the end of the skipped elements" />');
+
+			assertStartBEnd(function ()
+			{
+				$("#inner-container").skipOnTab(false);
+			});
+		});
+
 	} ());
 
 	(function ()
@@ -837,4 +974,5 @@
 
 	} ());
 } (jQuery));
+
 

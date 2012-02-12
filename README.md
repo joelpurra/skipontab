@@ -41,11 +41,15 @@ This library is most useful when the users are familiar with the form, and uses 
 ### Javascript
 
 ```javascript
-// Apply skip on tab to the selected elements
+// Apply skip on tab to the selected elements/containers
 $(selector).skipOnTab();
+
+// Exclude skip on tab to the selected elements/containers
+$(selector).skipOnTab(false);
 
 // Equivalent static function
 JoelPurra.SkipOnTab.skipOnTab($(selector));
+JoelPurra.SkipOnTab.skipOnTab($(selector), false);
 ```
 
 ### Skippable elements
@@ -63,7 +67,7 @@ Dynamic elements are initialized to SkipOnTab in code after adding them to the D
 When SkipOnTab is applied to html containers, like `<div>`, `<ul>` or `<fieldset>`, all skippable child elements are implicitly skipped. This applies to static html and subsequently added child elements.
 
 ### Disabling skipping
-Skippable elements, or containers with skippable children, marked with class `.disable-skip-on-tab` or attribute `data-skip-on-tab=false` are never skipped. If skipping is disabled for the element when it receives focus, or any of its elements parents, it will not be skipped. Disabling skipping takes precedence over enabling skipping.
+Skippable elements, or containers with skippable children, marked with class `.disable-skip-on-tab` or attribute `data-skip-on-tab="false"` are never skipped. Disabling can also be done dynamically on elements/containers with `$(selector).skipOnTab(false)`. If skipping is disabled for the element when it receives focus, or any of its elements parents, it will not be skipped. Disabling skipping takes precedence over enabling skipping.
 
 ## Original purpose
 Developed to skip less used form fields in a web application for registering and administering letters. Examples of skipped fields are dropdowns with sensible defaults, the second address line fields in address forms and buttons for seldom used actions.

@@ -168,7 +168,9 @@ var JoelPurra = JoelPurra || {};
 
 	// Public functions
 	{
-		namespace.SkipOnTab.skipOnTab = function ($elements) {
+		namespace.SkipOnTab.skipOnTab = function ($elements, enable) {
+
+			enable = (enable === undefined ? true : enable === true);
 
 			return $elements.each(function () {
 					
@@ -177,14 +179,14 @@ var JoelPurra = JoelPurra || {};
 				$this
 					.not(disableSkipOnTab)
 					.not(enableSkipOnTab)
-					.attr("data-skip-on-tab", "true");
+					.attr("data-skip-on-tab",  enable ? "true" : "false");
 			});
 		};
 
 		$.fn.extend({
-			skipOnTab: function () {
+			skipOnTab: function (enable) {
 
-				return namespace.SkipOnTab.skipOnTab(this);
+				return namespace.SkipOnTab.skipOnTab(this, enable);
 			}
 		});
 	}
