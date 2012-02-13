@@ -14,35 +14,6 @@
 
 	// Tab focus emulation
 	{
-		// Can't actually trigger the TAB key in the browser,
-		// so simulate by focusing the next element
-		// NOTE: this is pretty bad as it's using the internals
-		// of SkipOnTab/PlusAsTab - might be better to find a way to make
-		// the browser do it.
-		// TRY: Flash, Java applet, Silverlight, ActiveX, browser plugin
-		var focusable = ":input, a[href]";
-
-		// Copy of function in plusastab.joelpurra.js/skipontab.joelpurra.js
-		function findNextFocusable($from, offset)
-		{
-			var $focusable = $(focusable)
-				.not(":disabled")
-				.not(":hidden");
-
-			var currentIndex = $focusable.index($from);
-
-			var nextIndex = (currentIndex + offset) % $focusable.length;
-
-			if (nextIndex <= -1)
-			{
-				nextIndex = $focusable.length + nextIndex;
-			}
-
-			var $next = $focusable.eq(nextIndex);
-
-			return $next;
-		}
-
 		function getSimulatedTabkeyEventOptions(shift)
 		{
 			shift = !!shift;
@@ -55,14 +26,6 @@
 				};
 
 			return key;
-		}
-
-		// Copy of function in plusastab.joelpurra.js/skipontab.joelpurra.js
-		function emulateTabbing($from, offset)
-		{
-			var $next = findNextFocusable($from, offset);
-
-			$next.focus();
 		}
 	}
 
@@ -158,6 +121,12 @@
 
 	// Tab simulation
 	{
+		// Can't actually trigger the TAB key in the browser,
+		// so simulate by focusing the next element
+		// NOTE: this is pretty bad as it's using the internals
+		// of SkipOnTab/PlusAsTab - might be better to find a way to make
+		// the browser do it.
+		// TRY: Flash, Java applet, Silverlight, ActiveX, browser plugin
 		function pressTab($element, shift)
 		{
 			shift = !!shift;
@@ -169,7 +138,7 @@
 			key,
 			function ()
 			{
-				emulateTabbing($element, (shift ? -1 : 1));
+				$element.emulateTab((shift ? -1 : 1));
 			});
 		}
 

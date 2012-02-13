@@ -4,7 +4,7 @@
 * Developed for PTS by Joel Purra <http://joelpurra.se/>
 * Released under the BSD license.
 *
-* a jQuery plugin to
+* A jQuery plugin to
 *	- exempt selected fields from forward tab order
 *	- include excluded fields in reverse tab order
 */
@@ -15,8 +15,6 @@
 // Set up namespace, if needed
 var JoelPurra = JoelPurra || {};
 
-// TODO: put common functions in a common file for
-// skipontab.joelpurra.js and plusastab.joelpurra.js?
 (function ($, namespace) {
 
 	namespace.SkipOnTab = function () {
@@ -30,8 +28,6 @@ var JoelPurra = JoelPurra || {};
 	// https://developer.mozilla.org/en/DOM/KeyboardEvent#Virtual_key_codes
 	var KEY_TAB = 9;
 
-	// TODO: get code for :focusable, :tabbable from jQuery UI?
-	var focusable = ":input, a[href]";
 	var enableSkipOnTab = ".skip-on-tab, [data-skip-on-tab=true]";
 	var disableSkipOnTab = ".disable-skip-on-tab, [data-skip-on-tab=false]";
 
@@ -46,38 +42,9 @@ var JoelPurra = JoelPurra || {};
 			};
 		}
 
-		function resetTabKeyStatus()
-		{
+		function resetTabKeyStatus() {
+
 			setTabKeyStatus(false, false, undefined);
-		}
-
-		// Copy of function in plusastab.joelpurra.js/skipontab.joelpurra.js
-		function findNextFocusable($from, offset) {
-
-			var $focusable = $(focusable)
-				.not(":disabled")
-				.not(":hidden");
-
-			var currentIndex = $focusable.index($from);
-
-			var nextIndex = (currentIndex + offset) % $focusable.length;
-
-			if (nextIndex <= -1) {
-
-				nextIndex = $focusable.length + nextIndex;
-			}
-
-			var $next = $focusable.eq(nextIndex);
-
-			return $next;
-		}
-
-		// Copy of function in plusastab.joelpurra.js/skipontab.joelpurra.js
-		function emulateTabbing($from, offset) {
-
-			var $next = findNextFocusable($from, offset);
-
-			$next.focus();
 		}
 
 		function performEmulatedTabbing() {
@@ -88,7 +55,7 @@ var JoelPurra = JoelPurra || {};
 
 				if (!keyStatus.isReverse) {
 
-					emulateTabbing(keyStatus.$target, +1);
+					keyStatus.$target.emulateTab(+1);
 
 					return true;
 				}
@@ -104,8 +71,8 @@ var JoelPurra = JoelPurra || {};
 			if ($target.is(disableSkipOnTab)
 				|| $target.parents(disableSkipOnTab).length > 0
 				|| (!$target.is(enableSkipOnTab)
-					&& $target.parents(enableSkipOnTab).length === 0))
-			{
+					&& $target.parents(enableSkipOnTab).length === 0)) {
+
 				return;
 			}
 

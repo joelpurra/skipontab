@@ -76,14 +76,12 @@ Developed to skip less used form fields in a web application for registering and
 SkipOnTab does *not* rely on setting [`tabindex`](http://www.w3.org/TR/html4/interact/forms.html#h-17.11.1) on elements - it uses javascript events instead. Read more on the wiki page [SkipOnTab versus tabindex](https://github.com/joelpurra/skipontab/wiki/SkipOnTab-versus-tabindex).
 
 ## Dependencies
-SkipOnTab's only runtime dependencies is [jQuery](http://jquery.com/).
+SkipOnTab's runtime dependencies are
+
+* [jQuery](http://jquery.com/)
+* [EmulateTab](https://github.com/joelpurra/emulatetab), one of SkipOnTab's sister projects.
 
 ## Todo
-
-* [jQuery UI](http://jqueryui.com/) has better code for [`:focusable`](https://github.com/jquery/jquery-ui/blob/master/ui/jquery.ui.core.js#L210)/[`:tabbable`](https://github.com/jquery/jquery-ui/blob/master/ui/jquery.ui.core.js#L214). Investigate how to implement it.
-* Investigate [`[contenteditable]`](http://www.whatwg.org/specs/web-apps/current-work/#contenteditable).
-* Investigate focusing/skipping non-input elements with [`[tabindex]`](http://www.w3.org/TR/html4/interact/forms.html#h-17.11.1) and negative values value.
-* Break out reusable <kbd>tab</kbd> key `.focus()` emulator functions.
 * Break out reusable key press functions from tests.
 * Investigate how usable `data-skip-on-tab="#id-of-next-element-in-the-order"` would be.
 
