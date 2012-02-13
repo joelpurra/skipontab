@@ -85,6 +85,12 @@ SkipOnTab's runtime dependencies are
 * Break out reusable key press functions from tests.
 * Investigate how usable `data-skip-on-tab="#id-of-next-element-in-the-order"` would be.
 
+## See also
+PlusAsTab's sister projects.
+
+* [PlusAsTab](https://github.com/joelpurra/plusastab) - use the <kbd>+</kbd> key on the *keypad* as a <kbd>tab</kbd> key equivalent for faster numeric input.
+* [EmulateTab](https://github.com/joelpurra/emulatetab) - the tab emulator used by both SkipOnTab and PlusAsTab.
+
 ## License
 Developed for PTS by Joel Purra <http://joelpurra.se/>
 
