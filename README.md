@@ -9,8 +9,8 @@ When using <kbd>tab</kbd> to navigate through a form, skipping some fields will 
 This library is most useful when the users are familiar with the form, and uses it regularly. Casual users may not feel as comfortable - then again, if they are already using the <kbd>tab</kbd> button, they might see it as an optimization.
 
 ## Demos
-* `examples/demo.html`: Simple demo for playing around.
-* `examples/skip-some-fields-in-order-form.html`: Expanded demo with some thoughts on what fields to skip.
+* [`example/demo.html`](http://joelpurra.github.com/skipontab/example/demo.html): Simple demo for playing around.
+* [`example/skip-some-fields-in-order-form.html`](http://joelpurra.github.com/skipontab/example/skip-some-fields-in-order-form.html): Expanded demo with some thoughts on what fields to skip.
 
 ## Usage
 
@@ -80,6 +80,9 @@ SkipOnTab's runtime dependencies are
 
 * [jQuery](http://jquery.com/)
 * [EmulateTab](https://github.com/joelpurra/emulatetab), one of SkipOnTab's sister projects.
+
+## Browser compatibility
+Should be about as compatible as jQuery is, since most functions depend on jQuery's normalization. You are engouraged to [run the SkipOnTab test suite](http://joelpurra.github.com/skipontab/test/) and then report any issues.
 
 ## Todo
 * Break out reusable key press functions from tests.
