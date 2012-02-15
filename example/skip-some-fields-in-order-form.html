@@ -1,236 +1,231 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>SkipOnTab skip some fields in order form</title>
-	<style>
-		label
-		{
-			display: block;
-		}
-		
-		input, textarea, select
-		{
-			min-width: 20em;
-		}
-		
-		table input
-		{
-			min-width: 5em;
-		}
-		
-		input[type=radio], input[type=checkbox]
-		{
-			min-width: 2em;
-		}
-		
-		input[type=radio] + label, input[type=checkbox] + label
-		{
-			display: inline;
-		}
-		
-		ol
-		{
-			list-style-type: none;
-			padding-left: 0;
-		}
-		
-		small
-		{
-			color: #999;
-		}
-		
-		kbd
-		{
-			border-width: 2px;
-			border-style: outset;
-			padding: 1px;
-			background-color: #eee;
-		}
-		
-		.explanation
-		{
-			background-color: #ffffcc;
-			padding: 0.3em;
-		}
-	</style>
-</head>
-<body>
-	<h1>
-		<a href="https://github.com/joelpurra/skipontab">SkipOnTab</a> skip some fields
-		in order form</h1>
-	<p>
-		Some fields in this form are prefilled with sensible defaults, other are just not
-		as common to fill in (ie "empty" is a sensible default). These fields are skipped
-		when the user navigates the fields using the <kbd>tab</kbd> key. To reach the normally
-		skipped fields using keyboard navigation, just <kbd>tab</kbd> past them and <kbd>shift</kbd>-<kbd>tab</kbd>
-		back. Mouse or touch navigation is unaffected.
-	</p>
-	<p>
-		Skipping fields is most useful when the users are familiar with the form, and uses
-		it regularly. Casual users may not feel as comfortable - then again, if they are
-		already using the <kbd>tab</kbd> button, they might see it as an optimization.
-	</p>
-	<p>
-		Both static html fields and dynamically added fields are skipped in this example.
-		The static html fields have, or are contained within elements that have, the attribute
-		<code>data-skip-on-tab="true"</code>. The dynamically added fields are children
-		of a container that is marked to be skipped, so explicitly enabling skipping is
-		not necessary.
-	</p>
-	<h2>
-		Register phone order into order administration system
-	</h2>
-	<p>
-		This <span class="explanation">annotated example form</span> is used only by sales
-		staff. They enter order details received by phone all day long, which is why they
-		don't want to <kbd>tab</kbd> through all fields every time.
-	</p>
-	<form action="about:blank">
-	<fieldset>
-		<legend>Customer contact information</legend>
-		<label for="phone">
-			Phone number
-		</label>
-		<input id="phone" type="tel" required="required" autofocus="true" />
-		<span class="explanation">Input always starts here</span>
-	</fieldset>
-	<fieldset data-skip-on-tab="true">
-		<legend>Products</legend><span class="explanation">This entire section can usually be
-			left with default values, so it is skipped when tabbing.</span>
-		<table id="products">
-			<thead>
-				<tr>
-					<th scope="col">
-						Product
-					</th>
-					<th scope="col">
-						Quantity
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						Standard kit of our most popular product
-					</td>
-					<td>
-						<input id="amount-0" type="number" min="0" step="1" value="1" required="required" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Extra expensive add-on kit
-					</td>
-					<td>
-						<input id="amount-1" type="number" min="0" step="1" value="0" required="required" />
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<button id="add" type="button">
-			Add another product type
-		</button>
-		<span class="explanation">Dynamically adds a field that is usually skipped, but running
-			<code>.focus()</code> to enable faster edits.</span>
-	</fieldset>
-	<fieldset>
-		<legend>Delivery address</legend>
-		<label for="name">
-			Name
-		</label>
-		<input id="name" type="text" required="required" />
-		<label for="address1">
-			Address line 1
-		</label>
-		<input id="address1" type="text" required="required" />
-		<label for="address2">
-			Address line 2 <small>(optional)</small>
-		</label>
-		<input id="address2" type="text" data-skip-on-tab="true" />
-		<small>(optional)</small> <span class="explanation">Since the second address line is
-			optional, it makes sense to skip it.</span>
-		<label for="zip">
-			Zip code
-		</label>
-		<input id="zip" type="text" required="required" />
-		<label for="city">
-			City
-		</label>
-		<input id="city" type="text" required="required" />
-		<span class="explanation">Most of the time, entering details ends here; just pressing
-			<kbd>enter</kbd> saves the order.</span>
-		<label for="country">
-			Country
-		</label>
-		<select id="country" data-skip-on-tab="true" required="required">
-			<option>Denmark</option>
-			<option>Faroe Islands</option>
-			<option>Finland</option>
-			<option>Greenland</option>
-			<option>Iceland</option>
-			<option>Norway</option>
-			<option selected="selected">Sweden</option>
-			<option>Åland</option>
-		</select>
-		<span class="explanation">Orders are usually delivered to Sweden, which is why the drop
-			down list is skipped.</span>
-	</fieldset>
-	<fieldset data-skip-on-tab="true">
-		<legend>Delivery options</legend>
-		<input id="giftwrap" type="checkbox" />
-		<label for="giftwrap">
-			Gift wrap</label>
-		<ol>
-			<li>
-				<input id="delivery-0" name="delivery" type="radio" checked="checked" />
-				<label for="delivery-0">
-					Normal delivery (5-6 days)</label>
-			</li>
-			<li>
-				<input id="delivery-1" name="delivery" type="radio" />
-				<label for="delivery-1">
-					Express delivery (2-3 days)</label>
-			</li>
-			<li>
-				<input id="delivery-2" name="delivery" type="radio" />
-				<label for="delivery-2">
-					Overnight delivery (1 day)</label>
-			</li>
-		</ol>
-		<span class="explanation"><kbd>shift</kbd>-<kbd>tab</kbd> to radio buttons work as usual.</span>
-	</fieldset>
-	<fieldset>
-		<legend>Internal information</legend>
-		<label for="notes">
-			Order notes <small>(optional)</small></label>
-		<textarea id="notes"></textarea>
-		<small>(optional)</small> <span class="explanation">Notes are optional, but not skipped.
-			It doesn't make sense to skip to the submit button when <kbd>enter</kbd> can be
-			used.</span>
-	</fieldset>
-	<button type="submit">
-		Simulate save order and show alert box
+---
+layout: example
+title: skip some fields in order form
+---
+<style scoped="scoped">
+	label
+	{
+		display: block;
+	}
+	
+	input, textarea, select
+	{
+		min-width: 20em;
+	}
+	
+	table input
+	{
+		min-width: 5em;
+	}
+	
+	input[type=radio], input[type=checkbox]
+	{
+		min-width: 2em;
+	}
+	
+	input[type=radio] + label, input[type=checkbox] + label
+	{
+		display: inline;
+	}
+	
+	ol
+	{
+		list-style-type: none;
+		padding-left: 0;
+	}
+	
+	small
+	{
+		color: #999;
+	}
+	
+	kbd
+	{
+		border-width: 2px;
+		border-style: outset;
+		padding: 1px;
+		background-color: #eee;
+	}
+	
+	.explanation
+	{
+		background-color: #ffffcc;
+		padding: 0.3em;
+	}
+</style>
+<p>
+	Some fields in this form are prefilled with sensible defaults, other are just not
+	as common to fill in (ie "empty" is a sensible default). These fields are skipped
+	when the user navigates the fields using the <kbd>tab</kbd> key. To reach the normally
+	skipped fields using keyboard navigation, just <kbd>tab</kbd> past them and <kbd>shift</kbd>-<kbd>tab</kbd>
+	back. Mouse or touch navigation is unaffected.
+</p>
+<p>
+	Skipping fields is most useful when the users are familiar with the form, and uses
+	it regularly. Casual users may not feel as comfortable - then again, if they are
+	already using the <kbd>tab</kbd> button, they might see it as an optimization.
+</p>
+<p>
+	Both static html fields and dynamically added fields are skipped in this example.
+	The static html fields have, or are contained within elements that have, the attribute
+	<code>data-skip-on-tab="true"</code>. The dynamically added fields are children
+	of a container that is marked to be skipped, so explicitly enabling skipping is
+	not necessary.
+</p>
+<h2>
+	Register phone order into order administration system
+</h2>
+<p>
+	This <span class="explanation">annotated example form</span> is used only by sales
+	staff. They enter order details received by phone all day long, which is why they
+	don't want to <kbd>tab</kbd> through all fields every time.
+</p>
+<form action="about:blank">
+<fieldset>
+	<legend>Customer contact information</legend>
+	<label for="phone">
+		Phone number
+	</label>
+	<input id="phone" type="tel" required="required" autofocus="true" />
+	<span class="explanation">Input always starts here</span>
+</fieldset>
+<fieldset data-skip-on-tab="true">
+	<legend>Products</legend><span class="explanation">This entire section can usually be
+		left with default values, so it is skipped when tabbing.</span>
+	<table id="products">
+		<thead>
+			<tr>
+				<th scope="col">
+					Product
+				</th>
+				<th scope="col">
+					Quantity
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Standard kit of our most popular product
+				</td>
+				<td>
+					<input id="amount-0" type="number" min="0" step="1" value="1" required="required" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Extra expensive add-on kit
+				</td>
+				<td>
+					<input id="amount-1" type="number" min="0" step="1" value="0" required="required" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<button id="add" type="button">
+		Add another product type
 	</button>
-	</form>
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="../lib/emulatetab/src/emulatetab.joelpurra.js"></script>
-	<script src="../src/skipontab.joelpurra.js"></script>
-	<script>
+	<span class="explanation">Dynamically adds a field that is usually skipped, but running
+		<code>.focus()</code> to enable faster edits.</span>
+</fieldset>
+<fieldset>
+	<legend>Delivery address</legend>
+	<label for="name">
+		Name
+	</label>
+	<input id="name" type="text" required="required" />
+	<label for="address1">
+		Address line 1
+	</label>
+	<input id="address1" type="text" required="required" />
+	<label for="address2">
+		Address line 2 <small>(optional)</small>
+	</label>
+	<input id="address2" type="text" data-skip-on-tab="true" />
+	<small>(optional)</small> <span class="explanation">Since the second address line is
+		optional, it makes sense to skip it.</span>
+	<label for="zip">
+		Zip code
+	</label>
+	<input id="zip" type="text" required="required" />
+	<label for="city">
+		City
+	</label>
+	<input id="city" type="text" required="required" />
+	<span class="explanation">Most of the time, entering details ends here; just pressing
+		<kbd>enter</kbd> saves the order.</span>
+	<label for="country">
+		Country
+	</label>
+	<select id="country" data-skip-on-tab="true" required="required">
+		<option>Denmark</option>
+		<option>Faroe Islands</option>
+		<option>Finland</option>
+		<option>Greenland</option>
+		<option>Iceland</option>
+		<option>Norway</option>
+		<option selected="selected">Sweden</option>
+		<option>Åland</option>
+	</select>
+	<span class="explanation">Orders are usually delivered to Sweden, which is why the drop
+		down list is skipped.</span>
+</fieldset>
+<fieldset data-skip-on-tab="true">
+	<legend>Delivery options</legend>
+	<input id="giftwrap" type="checkbox" />
+	<label for="giftwrap">
+		Gift wrap</label>
+	<ol>
+		<li>
+			<input id="delivery-0" name="delivery" type="radio" checked="checked" />
+			<label for="delivery-0">
+				Normal delivery (5-6 days)</label>
+		</li>
+		<li>
+			<input id="delivery-1" name="delivery" type="radio" />
+			<label for="delivery-1">
+				Express delivery (2-3 days)</label>
+		</li>
+		<li>
+			<input id="delivery-2" name="delivery" type="radio" />
+			<label for="delivery-2">
+				Overnight delivery (1 day)</label>
+		</li>
+	</ol>
+	<span class="explanation"><kbd>shift</kbd>-<kbd>tab</kbd> to radio buttons work as usual.</span>
+</fieldset>
+<fieldset>
+	<legend>Internal information</legend>
+	<label for="notes">
+		Order notes <small>(optional)</small></label>
+	<textarea id="notes"></textarea>
+	<small>(optional)</small> <span class="explanation">Notes are optional, but not skipped.
+		It doesn't make sense to skip to the submit button when <kbd>enter</kbd> can be
+		used.</span>
+</fieldset>
+<button type="submit">
+	Simulate save order and show alert box
+</button>
+</form>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="../lib/emulatetab/src/emulatetab.joelpurra.js"></script>
+<script src="../src/skipontab.joelpurra.js"></script>
+<script>
 //<![CDATA[
 
-		$("form")
+	$("form")
 			.submit(simulateSubmitting);
 
-		$("#add")
+	$("#add")
 				.click(addProductTableRow);
 
-		function addProductTableRow()
-		{
-			var $productsBody = $("#products tbody");
-			var productCounter = $productsBody.children("tr").length;
-			var inputId = "amount-" + productCounter;
+	function addProductTableRow()
+	{
+		var $productsBody = $("#products tbody");
+		var productCounter = $productsBody.children("tr").length;
+		var inputId = "amount-" + productCounter;
 
-			$productsBody
+		$productsBody
 				.append($("<tr />")
 					.append($("<td />")
 						.html("Extra times "
@@ -245,25 +240,23 @@
 							.attr("required", "required")
 							.val("0"))));
 
-			// Skipping of the new element is implicit, since it is inside a container that
-			// is already marked for skipping with the data attribute
-			// Programmatically setting .focus() is not affected by SkipOnTab
-			$("#" + inputId)
+		// Skipping of the new element is implicit, since it is inside a container that
+		// is already marked for skipping with the data attribute
+		// Programmatically setting .focus() is not affected by SkipOnTab
+		$("#" + inputId)
 				.focus();
-		}
+	}
 
-		function simulateSubmitting(event)
+	function simulateSubmitting(event)
+	{
+		event.preventDefault();
+
+		if (confirm("Simulating that the form has been submitted and the order saved.\n\nWould you like to reload the page?"))
 		{
-			event.preventDefault();
-
-			if (confirm("Simulating that the form has been submitted and the order saved.\n\nWould you like to reload the page?"))
-			{
-				location.reload();
-			}
-
-			return false;
+			location.reload();
 		}
+
+		return false;
+	}
 //]]>
-	</script>
-</body>
-</html>
+</script>
