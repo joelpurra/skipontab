@@ -1,4 +1,4 @@
-# SkipOnTab javascript library
+# [SkipOnTab](http://joelpurra.github.com/skipontab) javascript library
 
 * A [jQuery](http://jquery.com/) plugin to
  * exempt selected fields from the forward tab order.
