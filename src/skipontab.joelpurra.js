@@ -128,8 +128,9 @@ var JoelPurra = JoelPurra || {};
 
 			resetTabKeyStatus();
 
-			$(document).on("keydown" + eventNamespace, checkTabKey);
-			$(document).on("focusin" + eventNamespace, checkSkipOnTabFocus);
+			$(document)
+				.on("keydown" + eventNamespace, checkTabKey)
+				.on("focusin" + eventNamespace, checkSkipOnTabFocus);
 		}
 	}
 
