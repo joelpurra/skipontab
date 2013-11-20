@@ -1,0 +1,42 @@
+{
+    "name": "skipontab",
+    "title": "SkipOnTab",
+    "description": "A jQuery plugin to exempt selected form fields from the forward tab order.",
+    "keywords": [
+        "tab",
+        "tabbing",
+        "usability",
+        "focus",
+        "keyboard",
+        "shortcuts",
+        "tabbable",
+        "form",
+        "forms",
+        "input",
+        "tabindex",
+        "skip",
+        "skipping"
+    ],
+    "version": "0.0.0",
+    "author": {
+        "name": "The Swedish Post and Telecom Authority (PTS)",
+        "url": "http://pts.se/"
+    },
+    "maintainers": [{
+        "name": "Joel Purra",
+        "email": "code+jquery@joelpurra.com",
+        "url": "http://joelpurra.com/"
+    }],
+    "licenses": [{
+        "type": "BSD-3-Clause",
+        "url": "https://github.com/joelpurra/skipontab/blob/master/LICENSE"
+    }],
+    "homepage": "http://joelpurra.github.com/skipontab",
+    "docs": "http://joelpurra.github.com/skipontab",
+    "bugs": "https://github.com/joelpurra/skipontab/issues",
+    "demo": "http://joelpurra.github.com/skipontab/example/enter-as-tab.html",
+    "dependencies": {
+        "jquery": ">=1.7",
+        "emulatetab": "~0.2.1"
+    }
+}
