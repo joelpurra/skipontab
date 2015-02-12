@@ -10,10 +10,8 @@ This library is most useful when the users are familiar with the form, and uses 
 
 ## Get it
 
-To include dependencies, make sure to get the submodules too.
-
 ```
-git clone --recursive git://github.com/joelpurra/skipontab.git
+bower install jquery-skipontab
 ```
 ## Demos
 * [`example/demo.html`](http://joelpurra.github.com/skipontab/example/demo.html): Simple demo for playing around.

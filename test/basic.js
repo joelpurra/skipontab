@@ -1,8 +1,3 @@
-/// <reference path="qunit/qunit/qunit.js" />
-/// <reference path="jquery-ui/jquery-1.7.1.js" />
-/// <reference path="jquery-ui/tests/jquery.simulate.js" />
-/// <reference path="../src/skipontab.joelpurra.js" />
-
 /*jslint browser: true, vars: true, white: true, regexp: true, maxlen: 150*/
 /*global JoelPurra, jQuery, console, module, test, asyncTest, start, ok, strictEqual, notStrictEqual*/
 
@@ -10,7 +5,7 @@
 {
 	var 
 		$container,
-		defaultKeyTimeout = 1;
+		defaultKeyTimeout = 10;
 
 	// Tab focus emulation
 	{
@@ -21,7 +16,7 @@
 			var key =
 				{
 					// Cannot use "which" with $.simulate
-					keyCode: $.simulate.VK_TAB,
+					keyCode: $.simulate.keyCode.TAB,
 					shiftKey: shift
 				};
 
