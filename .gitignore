@@ -1,2 +1,6 @@
 _site/
 bower_components/
+
+# IDEs / text editors
+.idea/
+*.iml
