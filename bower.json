@@ -1,11 +1,14 @@
 {
     "name": "jquery-skipontab",
     "version": "0.2.1",
+    "main": "src/skipontab.joelpurra.js"
     "dependencies": {
-        "console-shim": "*",
         "jquery": "^2.0.0",
+        "jquery-emulatetab": "^0.2.8"
+    },
+    "devDependencies": {
+        "console-shim": "*",
         "qunit": "^1.3.0",
         "jquery-simulate": "^1.0.0",
-        "jquery-emulatetab": "^0.2.8"
     }
 }
