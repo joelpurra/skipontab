@@ -1,6 +1,7 @@
 {
     "name": "jquery-skipontab",
     "version": "0.2.1",
+    "main": "src/skipontab.joelpurra.js",
     "dependencies": {
         "console-shim": "*",
         "jquery": "^2.0.0",
