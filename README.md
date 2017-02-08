@@ -149,4 +149,4 @@ PlusAsTab's sister projects.
 
 
 
-[SkipOnTab](https://joelpurra.github.io/skipontab) copyright &copy; 2011, 2012, 2013, 2014, 2015, The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/).
+[SkipOnTab](https://joelpurra.github.io/skipontab) copyright &copy; 2011, 2012, 2013, 2014, 2015, 2016, 2017, The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/).
