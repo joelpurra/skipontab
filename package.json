@@ -1,0 +1,35 @@
+{
+  "name": "skipontab",
+  "title": "skipontab",
+  "version": "0.2.2",
+  "description": "A jQuery plugin to exempt selected form fields from the forward tab order.",
+  "homepage": "https://joelpurra.com/projects/skipontab/",
+  "bugs": {
+    "url": "https://github.com/joelpurra/skipontab/issues"
+  },
+  "author": "Joel Purra <code@joelpurra.com> (https://joelpurra.com/)",
+  "main": "src/skipontab.joelpurra.js",
+  "scripts": {},
+  "license": "BSD-3-Clause",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joelpurra/skipontab.git"
+  },
+  "keywords": [
+    "tab",
+    "tabbing",
+    "usability",
+    "focus",
+    "keyboard",
+    "shortcuts",
+    "tabbable",
+    "form",
+    "forms",
+    "input",
+    "tabindex",
+    "skip",
+    "skipping"
+  ]
+}
