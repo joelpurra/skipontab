@@ -11,6 +11,12 @@
   - exempt selected fields from the forward tab order.
   - include excluded fields in the reverse tab order.
 
+- [Project page](https://joelpurra.com/projects/skipontab/)
+- [Source code on Github](https://github.com/joelpurra/skipontab)
+- [Basic demo](https://joelpurra.com/projects/skipontab/docs/example/demo.html)
+- [Order form demo](https://joelpurra.com/projects/skipontab/docs/example/skip-some-fields-in-order-form.html)
+- [Test suite](https://joelpurra.com/projects/skipontab/docs/test/)
+
 When using <kbd>tab</kbd> to navigate through a form, skipping some fields will reduce key presses for the normal use cases. Skipped fields can still be navigated to by keyboard; once skipped and focusing the next form field, use <kbd>shift</kbd>-<kbd>tab</kbd> to step back. Mouse or touch navigation is unaffected.
 
 This library is most useful when the users are familiar with the form, and uses it regularly. Casual users may not feel as comfortable - then again, if they are already using the <kbd>tab</kbd> button, they might see it as an optimization.
