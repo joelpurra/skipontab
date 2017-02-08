@@ -1,7 +1,7 @@
 /*!
 * @license SkipOnTab
 * Copyright (c) 2011, 2012 The Swedish Post and Telecom Authority (PTS)
-* Developed for PTS by Joel Purra <http://joelpurra.se/>
+* Developed for PTS by Joel Purra <https://joelpurra.com/>
 * Released under the BSD license.
 *
 * A jQuery plugin to

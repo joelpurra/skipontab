@@ -1,6 +1,6 @@
-# [SkipOnTab](http://joelpurra.github.com/skipontab) javascript library
+# [SkipOnTab](https://joelpurra.github.io/skipontab) javascript library
 
-* A [jQuery](http://jquery.com/) plugin to
+* A [jQuery](https://jquery.com/) plugin to
  * exempt selected fields from the forward tab order.
  * include excluded fields in the reverse tab order.
 
@@ -14,8 +14,8 @@ This library is most useful when the users are familiar with the form, and uses 
 bower install jquery-skipontab
 ```
 ## Demos
-* [`example/demo.html`](http://joelpurra.github.com/skipontab/example/demo.html): Simple demo for playing around.
-* [`example/skip-some-fields-in-order-form.html`](http://joelpurra.github.com/skipontab/example/skip-some-fields-in-order-form.html): Expanded demo with some thoughts on what fields to skip.
+* [`example/demo.html`](https://joelpurra.github.io/skipontab/example/demo.html): Simple demo for playing around.
+* [`example/skip-some-fields-in-order-form.html`](https://joelpurra.github.io/skipontab/example/skip-some-fields-in-order-form.html): Expanded demo with some thoughts on what fields to skip.
 
 ## Usage
 
@@ -25,7 +25,7 @@ bower install jquery-skipontab
 <!-- Can be applied to skippable elements one by one -->
 <input type="text" data-skip-on-tab="true" />
 <textarea data-skip-on-tab="true"></textarea>
-<a href="http://joelpurra.se/" data-skip-on-tab="true">Joel Purra</a>
+<a href="https://joelpurra.com/" data-skip-on-tab="true">Joel Purra</a>
 
 <input type="button" value="This button is not skipped" />
 
@@ -78,16 +78,16 @@ Skippable elements, or containers with skippable children, marked with class `.d
 Developed to skip less used form fields in a web application for registering and administering letters. Examples of skipped fields are dropdowns with sensible defaults, the second address line fields in address forms and buttons for seldom used actions.
 
 ## [SkipOnTab versus tabindex](https://github.com/joelpurra/skipontab/wiki/SkipOnTab-versus-tabindex)
-SkipOnTab does *not* rely on setting [`tabindex`](http://www.w3.org/TR/html4/interact/forms.html#h-17.11.1) on elements - it uses javascript events instead. Read more on the wiki page [SkipOnTab versus tabindex](https://github.com/joelpurra/skipontab/wiki/SkipOnTab-versus-tabindex).
+SkipOnTab does *not* rely on setting [`tabindex`](https://www.w3.org/TR/html4/interact/forms.html#h-17.11.1) on elements - it uses javascript events instead. Read more on the wiki page [SkipOnTab versus tabindex](https://github.com/joelpurra/skipontab/wiki/SkipOnTab-versus-tabindex).
 
 ## Dependencies
 SkipOnTab's runtime dependencies are
 
-* [jQuery](http://jquery.com/)
+* [jQuery](https://jquery.com/)
 * [EmulateTab](https://github.com/joelpurra/emulatetab), one of SkipOnTab's sister projects.
 
 ## Browser compatibility
-Should be about as compatible as jQuery is, since most functions depend on jQuery's normalization. You are engouraged to [run the SkipOnTab test suite](http://joelpurra.github.com/skipontab/test/) and then report any issues.
+Should be about as compatible as jQuery is, since most functions depend on jQuery's normalization. You are engouraged to [run the SkipOnTab test suite](https://joelpurra.github.io/skipontab/test/) and then report any issues.
 
 ## Todo
 * Break out reusable key press functions from tests.
@@ -100,7 +100,7 @@ PlusAsTab's sister projects.
 * [EmulateTab](https://github.com/joelpurra/emulatetab) - the tab emulator used by both SkipOnTab and PlusAsTab.
 
 ## License
-Developed for PTS by Joel Purra <http://joelpurra.se/>
+Developed for PTS by Joel Purra <https://joelpurra.com/>
 
 Copyright (c) 2011, 2012, 2013, 2014, 2015, The Swedish Post and Telecom Authority (PTS)
 All rights reserved.
