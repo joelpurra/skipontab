@@ -1,5 +1,12 @@
 # [SkipOnTab](https://joelpurra.github.io/skipontab) javascript library
 
+<p class="donate">
+  <a href="https://joelpurra.com/donate/proceed/?amount=5&currency=usd"><kbd>Donate $5 now</kbd></a>
+  <a href="https://joelpurra.com/donate/proceed/?amount=25&currency=usd"><kbd>Donate $25 now</kbd></a>
+  <a href="https://joelpurra.com/donate/proceed/?amount=100&currency=usd&invoice=true"><kbd>Donate $100 now</kbd></a>
+  <a href="https://joelpurra.com/donate/"><kbd>More options</kbd></a>
+</p>
+
 - A [jQuery](https://jquery.com/) plugin to
   - exempt selected fields from the forward tab order.
   - include excluded fields in the reverse tab order.
@@ -149,4 +156,4 @@ PlusAsTab's sister projects.
 
 
 
-[SkipOnTab](https://joelpurra.github.io/skipontab) copyright &copy; 2011, 2012, 2013, 2014, 2015, 2016, 2017, The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/).
+[SkipOnTab](https://joelpurra.github.io/skipontab) copyright &copy; 2011, 2012, 2013, 2014, 2015, 2016, 2017, The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/). [Your donations are appreciated!](https://joelpurra.com/donate/)
