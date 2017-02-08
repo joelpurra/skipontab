@@ -31,10 +31,10 @@
         "type": "BSD-3-Clause",
         "url": "https://github.com/joelpurra/skipontab/blob/master/LICENSE"
     }],
-    "homepage": "https://joelpurra.github.io/skipontab",
-    "docs": "https://joelpurra.github.io/skipontab",
+    "homepage": "https://joelpurra.com/projects/skipontab/",
+    "docs": "https://joelpurra.com/projects/skipontab/",
     "bugs": "https://github.com/joelpurra/skipontab/issues",
-    "demo": "https://joelpurra.github.io/skipontab/example/enter-as-tab.html",
+    "demo": "https://joelpurra.com/projects/skipontab/docs/example/enter-as-tab.html",
     "dependencies": {
         "jquery": "^2.0.0",
         "emulatetab": "^0.2.9"

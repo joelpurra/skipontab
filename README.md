@@ -1,4 +1,4 @@
-# [SkipOnTab](https://joelpurra.github.io/skipontab) javascript library
+# [SkipOnTab](https://joelpurra.com/projects/skipontab/) javascript library
 
 <p class="donate">
   <a href="https://joelpurra.com/donate/proceed/?amount=5&currency=usd"><kbd>Donate $5 now</kbd></a>
@@ -30,8 +30,8 @@ bower install jquery-skipontab
 
 ## Demos
 
-- [`example/demo.html`](https://joelpurra.github.io/skipontab/example/demo.html): Simple demo for playing around.
-- [`example/skip-some-fields-in-order-form.html`](https://joelpurra.github.io/skipontab/example/skip-some-fields-in-order-form.html): Expanded demo with some thoughts on what fields to skip.
+- [`example/demo.html`](https://joelpurra.com/projects/skipontab/docs/example/demo.html): Simple demo for playing around.
+- [`example/skip-some-fields-in-order-form.html`](https://joelpurra.com/projects/skipontab/docs/example/skip-some-fields-in-order-form.html): Expanded demo with some thoughts on what fields to skip.
 
 ## Usage
 
@@ -132,7 +132,7 @@ SkipOnTab's runtime dependencies are
 
 ## Browser compatibility
 
-Should be about as compatible as jQuery is, since most functions depend on jQuery's normalization. You are engouraged to [run the SkipOnTab test suite](https://joelpurra.github.io/skipontab/test/) and then report any issues.
+Should be about as compatible as jQuery is, since most functions depend on jQuery's normalization. You are engouraged to [run the SkipOnTab test suite](https://joelpurra.com/projects/skipontab/docs/test/) and then report any issues.
 
 
 
@@ -156,4 +156,4 @@ PlusAsTab's sister projects.
 
 
 
-[SkipOnTab](https://joelpurra.github.io/skipontab) copyright &copy; 2011, 2012, 2013, 2014, 2015, 2016, 2017, The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/). [Your donations are appreciated!](https://joelpurra.com/donate/)
+[SkipOnTab](https://joelpurra.com/projects/skipontab/) copyright &copy; 2011, 2012, 2013, 2014, 2015, 2016, 2017, The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/). [Your donations are appreciated!](https://joelpurra.com/donate/)
