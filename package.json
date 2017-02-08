@@ -9,10 +9,21 @@
   },
   "author": "Joel Purra <code@joelpurra.com> (https://joelpurra.com/)",
   "main": "src/skipontab.joelpurra.js",
-  "scripts": {},
+  "scripts": {
+    "build": "rimraf ./docs/dist && mkdirp ./docs/dist && cp ./src/skipontab.joelpurra.js ./docs/dist/",
+    "git-add-dist": "git add ./docs/dist/skipontab.joelpurra.js"
+  },
+  "pre-commit": [
+    "build",
+    "git-add-dist"
+  ],
   "license": "BSD-3-Clause",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "mkdirp": "^0.5.1",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^2.5.4"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/joelpurra/skipontab.git"
