@@ -142,9 +142,68 @@ QUnit,
         );
     }
 
+    // Simulated keypress helpers
+    function getSimulatedKeyEventOptions(keyCode, shift)
+    {
+        shift = !!shift;
+
+        var key
+                = {
+                    // Cannot use "which" with $.simulate
+                    keyCode: keyCode,
+                    shiftKey: shift,
+                };
+
+        return key;
+    }
+
+    function pressSimulatedKeyCode($element, keyCode, shift)
+    {
+        var key = getSimulatedKeyEventOptions(keyCode, shift);
+
+        // TODO: simulate 'keyCode' being added to text boxes (but it will be cancelled)
+        return pressKey($element, key, $.noop);
+    }
+
+    // Tabbing related key press helpers
     function getFocusedElement()
     {
         return $(document.activeElement);
+    }
+
+    function pressKeyFromFocusedElement(keyCode, shift)
+    {
+        return pressSimulatedKeyCode(getFocusedElement(), keyCode, shift);
+    }
+
+    function pressKeyAndGetFocusedElement(keyCode, shift)
+    {
+        return pressKeyFromFocusedElement(keyCode, shift)
+            .pipe(getFocusedElement);
+    }
+
+    // Test keys simulation helpers
+    // Keys from
+    // https://api.jquery.com/event.which/
+    // https://developer.mozilla.org/en/DOM/KeyboardEvent#Virtual_key_codes
+    var KEY_TAB = 9;
+    var KEY_ENTER = 13;
+    var KEY_ARROW_DOWN = 40;
+    var KEY_NUM_PLUS = 107;
+
+    function pressEnterAndGetFocusedElement(shift)
+    {
+        return pressKeyAndGetFocusedElement(KEY_ENTER, shift);
+    }
+
+    function pressArrowDownAndGetFocusedElement(shift)
+    {
+        return pressKeyAndGetFocusedElement(KEY_ARROW_DOWN, shift);
+    }
+
+    function pressNumpadPlusAndGetFocusedElement(shift)
+    {
+        return pressKeyAndGetFocusedElement(KEY_NUM_PLUS, shift);
     }
 
     function pressTabFromFocusedElement(shift)
@@ -167,6 +226,30 @@ QUnit,
         $div.appendTo($qunitFixture);
 
         $container = $div;
+    }
+
+    function resetKeyOptions() {
+        JoelPurra.SkipOnTab.setOptions({
+            key: KEY_TAB,
+        });
+    }
+
+    function useNumPadPlusKeyOptions() {
+        JoelPurra.SkipOnTab.setOptions({
+            key: KEY_ENTER,
+        });
+    }
+
+    function useEnterKeyOptions() {
+        JoelPurra.SkipOnTab.setOptions({
+            key: KEY_ENTER,
+        });
+    }
+
+    function useEnterArrowDownKeysOptions() {
+        JoelPurra.SkipOnTab.setOptions({
+            key: [KEY_ENTER, KEY_ARROW_DOWN],
+        });
     }
 
     function fnSkipA()
@@ -213,19 +296,65 @@ QUnit,
         };
     }
 
-    // Enabling SkipOnTab on the element (class/attribute)
-    function assertElementStartAEnd(assert, done)
+    function enterAssertId(assert, id, shift)
     {
+        return function()
+        {
+            return pressEnterAndGetFocusedElement(shift)
+                .pipe(function($focused)
+                {
+                    assertId(assert, $focused, id);
+                });
+        };
+    }
+
+    function arrowDownAssertId(assert, id, shift)
+    {
+        return function()
+        {
+            return pressArrowDownAndGetFocusedElement(shift)
+                .pipe(function($focused)
+                {
+                    assertId(assert, $focused, id);
+                });
+        };
+    }
+
+    function numpadPlusAssertId(assert, id, shift)
+    {
+        return function()
+        {
+            return pressNumpadPlusAndGetFocusedElement(shift)
+                .pipe(function($focused)
+                {
+                    assertId(assert, $focused, id);
+                });
+        };
+    }
+
+    function randomEnterArrowDownAssertId(assert, id, shift) {
+        if (Math.random() > (1 / 2)) {
+            arrowDownAssertId(assert, id, shift);
+        } else {
+            enterAssertId(assert, id, shift);
+        }
+    }
+
+    // Enabling SkipOnTab on the element (class/attribute)
+    function assertElementStartAEnd(assert, done, keyAssertFn)
+    {
+        keyAssertFn = keyAssertFn || tabAssertId;
+
         $("#start").focus();
 
         assertId(assert, getFocusedElement(), "start");
 
         return $.when()
             // Skip all skippable elements
-            .pipe(tabAssertId(assert, "end"))
+            .pipe(keyAssertFn(assert, "end"))
             // Reverse tab back to the start
-            .pipe(tabAssertId(assert, "a", true))
-            .pipe(tabAssertId(assert, "start", true))
+            .pipe(keyAssertFn(assert, "a", true))
+            .pipe(keyAssertFn(assert, "start", true))
             // Async test, must run start()
             .pipe(done);
     }
@@ -1051,6 +1180,67 @@ QUnit,
                 .pipe(tabAssertId(assert, "start", true))
                 // Async test, must run start()
                 .pipe(done);
+        });
+    }());
+
+    (function()
+    {
+        QUnit.module("setOptions",
+            {
+                beforeEach: normalSetup,
+            });
+
+        QUnit.test("Enter as tab", function(assert)
+        {
+            assert.expect(5);
+            var done = assert.async();
+
+            useEnterKeyOptions();
+
+            $container
+                .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
+                .append("<input id=\"a\" type=\"text\" value=\"text field that is skipped\" class=\"skip-on-tab\" />")
+                .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the skipped elements\" />");
+
+            assertElementStartAEnd(assert, function() { resetKeyOptions(); done(); }, enterAssertId);
+        });
+
+        QUnit.test("Plus as tab", function(assert)
+        {
+            assert.expect(5);
+            var done = assert.async();
+
+            useNumPadPlusKeyOptions();
+
+            $container
+                .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
+                .append("<input id=\"a\" type=\"text\" value=\"text field that is skipped\" class=\"skip-on-tab\" />")
+                .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the skipped elements\" />");
+
+            assertElementStartAEnd(assert, function() { resetKeyOptions(); done(); }, numpadPlusAssertId);
+        });
+    }());
+
+    (function()
+    {
+        QUnit.module("setOptions multiple keys",
+            {
+                beforeEach: normalSetup,
+            });
+
+        QUnit.test("Elements", function(assert)
+        {
+            assert.expect(5);
+            var done = assert.async();
+
+            useEnterArrowDownKeysOptions();
+
+            $container
+                .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
+                .append("<input id=\"a\" type=\"text\" value=\"text field that is skipped\" class=\"skip-on-tab\" />")
+                .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the skipped elements\" />");
+
+            assertElementStartAEnd(assert, function() { resetKeyOptions(); done(); }, randomEnterArrowDownAssertId);
         });
     }());
 }(jQuery));

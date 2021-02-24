@@ -70,13 +70,23 @@ var JoelPurra = JoelPurra || {};
         return;
     }
 
+    function isChosenTabkey(key) {
+        if (key === options.key
+                || ($.isArray(options.key)
+                    && $.inArray(key, options.key) !== -1)) {
+            return true;
+        }
+
+        return false;
+    }
+
     function isTabkey(event) {
         // Checked later for reverse tab
         //&& !event.shiftKey
         if (!event.altKey
                 && !event.ctrlKey
                 && !event.metaKey
-                && event.which === KEY_TAB) {
+                && isChosenTabkey(event.which)) {
             return true;
         }
 
@@ -114,10 +124,22 @@ var JoelPurra = JoelPurra || {};
         // https://developer.mozilla.org/en/DOM/KeyboardEvent#Virtual_key_codes
         KEY_TAB = 9,
 
+        // Add options defaults here
+        internalDefaults = {
+            key: KEY_TAB,
+        },
+
+        options = $.extend(true, {}, internalDefaults),
+
         enableSkipOnTab = ".skip-on-tab, [data-skip-on-tab=true]",
         disableSkipOnTab = ".disable-skip-on-tab, [data-skip-on-tab=false]";
 
     // Public functions
+    namespace.SkipOnTab.setOptions = function(userOptions) {
+        // Merge the options onto the current options (usually the default values)
+        $.extend(true, options, userOptions);
+    };
+
     namespace.SkipOnTab.skipOnTab = function($elements, enable) {
         enable = (enable === undefined ? true : enable === true);
 
