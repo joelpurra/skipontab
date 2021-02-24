@@ -229,27 +229,34 @@ QUnit,
     }
 
     function resetKeyOptions() {
+        // NOTE: different defaults.
+        JoelPurra.PlusAsTab.setOptions({
+            key: KEY_NUM_PLUS,
+        });
         JoelPurra.SkipOnTab.setOptions({
             key: KEY_TAB,
         });
     }
 
-    function useNumPadPlusKeyOptions() {
-        JoelPurra.SkipOnTab.setOptions({
-            key: KEY_ENTER,
+    function setKeyOptions(key) {
+        JoelPurra.PlusAsTab.setOptions({
+            key: key,
         });
+        JoelPurra.SkipOnTab.setOptions({
+            key: key,
+        });
+    }
+
+    function useNumPadPlusKeyOptions() {
+        setKeyOptions(KEY_NUM_PLUS);
     }
 
     function useEnterKeyOptions() {
-        JoelPurra.SkipOnTab.setOptions({
-            key: KEY_ENTER,
-        });
+        setKeyOptions(KEY_ENTER);
     }
 
     function useEnterArrowDownKeysOptions() {
-        JoelPurra.SkipOnTab.setOptions({
-            key: [KEY_ENTER, KEY_ARROW_DOWN],
-        });
+        setKeyOptions([KEY_ENTER, KEY_ARROW_DOWN]);
     }
 
     function fnSkipA()
@@ -334,10 +341,9 @@ QUnit,
 
     function randomEnterArrowDownAssertId(assert, id, shift) {
         if (Math.random() > (1 / 2)) {
-            arrowDownAssertId(assert, id, shift);
-        } else {
-            enterAssertId(assert, id, shift);
+            return arrowDownAssertId(assert, id, shift);
         }
+        return enterAssertId(assert, id, shift);
     }
 
     // Enabling SkipOnTab on the element (class/attribute)
@@ -1190,24 +1196,9 @@ QUnit,
                 beforeEach: normalSetup,
             });
 
-        QUnit.test("Enter as tab", function(assert)
-        {
-            assert.expect(5);
-            var done = assert.async();
-
-            useEnterKeyOptions();
-
-            $container
-                .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
-                .append("<input id=\"a\" type=\"text\" value=\"text field that is skipped\" class=\"skip-on-tab\" />")
-                .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the skipped elements\" />");
-
-            assertElementStartAEnd(assert, function() { resetKeyOptions(); done(); }, enterAssertId);
-        });
-
         QUnit.test("Plus as tab", function(assert)
-        {
-            assert.expect(5);
+            {
+            assert.expect(4);
             var done = assert.async();
 
             useNumPadPlusKeyOptions();
@@ -1217,12 +1208,24 @@ QUnit,
                 .append("<input id=\"a\" type=\"text\" value=\"text field that is skipped\" class=\"skip-on-tab\" />")
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the skipped elements\" />");
 
-            assertElementStartAEnd(assert, function() { resetKeyOptions(); done(); }, numpadPlusAssertId);
+            assertElementStartAEnd(assert, function() { done(); resetKeyOptions(); }, numpadPlusAssertId);
         });
-    }());
 
-    (function()
-    {
+        QUnit.test("Enter as tab", function(assert)
+        {
+            assert.expect(4);
+            var done = assert.async();
+
+            useEnterKeyOptions();
+
+            $container
+                .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
+                .append("<input id=\"a\" type=\"text\" value=\"text field that is skipped\" class=\"skip-on-tab\" />")
+                .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the skipped elements\" />");
+
+            assertElementStartAEnd(assert, function() { done(); resetKeyOptions(); }, enterAssertId);
+        });
+
         QUnit.module("setOptions multiple keys",
             {
                 beforeEach: normalSetup,
@@ -1230,17 +1233,15 @@ QUnit,
 
         QUnit.test("Elements", function(assert)
         {
-            assert.expect(5);
+            assert.expect(4);
             var done = assert.async();
-
-            useEnterArrowDownKeysOptions();
 
             $container
                 .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
                 .append("<input id=\"a\" type=\"text\" value=\"text field that is skipped\" class=\"skip-on-tab\" />")
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the skipped elements\" />");
 
-            assertElementStartAEnd(assert, function() { resetKeyOptions(); done(); }, randomEnterArrowDownAssertId);
+            assertElementStartAEnd(assert, function() { done(); resetKeyOptions(); }, randomEnterArrowDownAssertId);
         });
     }());
 }(jQuery));

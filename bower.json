@@ -11,5 +11,8 @@
     "console-shim": "*",
     "jquery-simulate": "^1.0.0",
     "qunit": "^2.0.0"
+  },
+  "resolutions": {
+    "qunit": "^2.0.0"
   }
 }
