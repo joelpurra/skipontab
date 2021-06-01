@@ -11,6 +11,14 @@
   - exempt selected fields from the forward tab order.
   - include excluded fields in the reverse tab order.
 
+
+
+> ## ⚠️ This project has been archived
+>
+> No future updates are planned. Feel free to continue using it, but expect no support.
+
+
+
 - [Project page](https://joelpurra.com/projects/skipontab/)
 - [Source code on Github](https://github.com/joelpurra/skipontab)
 - [Basic demo](https://joelpurra.com/projects/skipontab/docs/example/demo.html)
